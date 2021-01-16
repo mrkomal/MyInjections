@@ -1,9 +1,6 @@
 package com.example.myinjections.viewmodel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.example.myinjections.repository.InjectionsRepository
 import com.example.myinjections.room.model.InjectionInfo
 import kotlinx.coroutines.launch
@@ -18,6 +15,15 @@ class InjectionsViewModel {
             repository.insertInjectionInfo(injectionInfo)
         }
 
+    }
+
+    class InjectionsViewModelFactory(private val repository: InjectionsRepository): ViewModelProvider.Factory {
+        override fun <T : ViewModel> create(modelClass: Class<T>): T {
+            if (modelClass.isAssignableFrom(InjectionsViewModel::class.java)) {
+                return InjectionsViewModel(repository) as T
+            }
+            throw IllegalArgumentException("Unknown ViewModel class")
+        }
     }
 
 }
