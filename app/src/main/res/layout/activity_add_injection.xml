@@ -31,6 +31,7 @@
                 android:layout_height="wrap_content"
                 style="@style/AddInjectionCardView.BottomItem"
                 android:textAlignment="center"
+                android:gravity="center"
                 android:hint="#Injection's name">
             </EditText>
         </LinearLayout>
