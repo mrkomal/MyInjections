@@ -23,6 +23,12 @@
 
     <style name="AddInjectionCardView.TextView">
         <item name="android:gravity">center_horizontal</item>
+        <item name="android:paddingBottom">8dp</item>
+    </style>
+
+    <style name="AddInjectionCardView.BottomItem">
+        <item name="android:background">@drawable/black_border_frame</item>
+        <item name="android:gravity">center_horizontal</item>
     </style>
 
 </resources>

@@ -5,4 +5,5 @@
     <color name="colorAccent">#2286c3</color>
     <color name="colorBackground">#bbdefb</color>
     <color name="colorTileCardView">#ffffff</color>
+    <color name="black">#000000</color>
 </resources>
