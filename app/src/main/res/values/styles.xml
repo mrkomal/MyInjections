@@ -17,4 +17,12 @@
         <item name="cardCornerRadius">16dp</item>
     </style>
 
+    <style name="AddInjectionCardView.LayoutPadding">
+        <item name="android:padding">8dp</item>
+    </style>
+
+    <style name="AddInjectionCardView.TextView">
+        <item name="android:gravity">center_horizontal</item>
+    </style>
+
 </resources>
