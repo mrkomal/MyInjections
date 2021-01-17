@@ -23,5 +23,3 @@ class InjectionsViewModelFactory(private val repository: InjectionsRepository): 
         throw IllegalArgumentException("Unknown ViewModel class")
     }
 }
-
-}
