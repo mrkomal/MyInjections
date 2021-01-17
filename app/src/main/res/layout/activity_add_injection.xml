@@ -26,6 +26,17 @@
                 android:text="#1 Insert name">
             </TextView>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/colorAccent"
+                android:layout_gravity="center">
+            </View>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="8dp">
+            </View>
+
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
