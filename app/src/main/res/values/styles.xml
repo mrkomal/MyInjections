@@ -22,20 +22,24 @@
     <style name="AddInjectionCardView">
         <item name="backgroundColor">@color/colorTileCardView</item>
         <item name="cardCornerRadius">16dp</item>
+        <item name="android:layout_marginBottom">8dp</item>
     </style>
 
     <style name="AddInjectionCardView.LayoutPadding">
         <item name="android:padding">8dp</item>
+        <item name="android:layout_marginBottom">0dp</item>
     </style>
 
     <style name="AddInjectionCardView.TextView">
         <item name="android:gravity">center_horizontal</item>
         <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginBottom">0dp</item>
     </style>
 
     <style name="AddInjectionCardView.BottomItem">
         <item name="android:background">@drawable/black_border_frame</item>
         <item name="android:gravity">center_horizontal</item>
+        <item name="android:layout_marginBottom">0dp</item>
     </style>
 
 </resources>
