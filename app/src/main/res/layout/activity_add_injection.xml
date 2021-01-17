@@ -63,7 +63,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 style="@style/AddInjectionCardView.TextView"
-                android:text="@string/header1">
+                android:text="@string/header2">
             </TextView>
 
             <View
@@ -76,6 +76,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="8dp">
             </View>
+
+            <NumberPicker
+                android:id="@+id/year_picker"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/AddInjectionCardView.BottomItem"/>
+
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 

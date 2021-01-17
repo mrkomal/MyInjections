@@ -5,4 +5,5 @@
     //add injection activity
     <string name="header1">#1 Insert name</string>
     <string name="hint_edittext1">Injection\'s name</string>
+    <string name="header2">#2 Scroll and choose the year</string>
 </resources>
