@@ -4,4 +4,5 @@
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#2286c3</color>
     <color name="colorBackground">#bbdefb</color>
+    <color name="colorTileCardView">#ffffff</color>
 </resources>
