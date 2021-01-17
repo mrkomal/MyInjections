@@ -8,4 +8,8 @@
         <item name="android:windowBackground">@color/colorBackground</item>
     </style>
 
+    <style name="ElementsOnBackgroundPadding">
+        <item name="android:padding">16dp</item>
+    </style>
+
 </resources>
