@@ -126,4 +126,53 @@
             </com.google.android.material.slider.Slider>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/AddInjectionCardView">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            style="@style/AddInjectionCardView.LayoutPadding">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/AddInjectionCardView.TextView"
+                android:text="@string/header4">
+            </TextView>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/colorAccent"
+                android:layout_gravity="center">
+            </View>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="8dp">
+            </View>
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                style="@style/AddInjectionCardView.BottomItem">
+
+                <RadioButton
+                    android:layout_width="66dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/radioButtonPos"
+                    android:layout_marginRight="50dp"/>
+
+                <RadioButton
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/radioButtonNeg" />
+            </RadioGroup>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
 </LinearLayout>

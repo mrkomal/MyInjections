@@ -7,4 +7,7 @@
     <string name="hint_edittext1">Injection\'s name</string>
     <string name="header2">#2 Scroll and choose the year</string>
     <string name="header3">#3 Slide and set the dose</string>
+    <string name="header4">#4 Obligatory injection?</string>
+    <string name="radioButtonPos">Yes</string>
+    <string name="radioButtonNeg">No</string>
 </resources>
