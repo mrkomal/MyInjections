@@ -28,7 +28,8 @@ class InjectionsListAdapter: ListAdapter<InjectionInfo,
         holder: InjectionsListAdapter.InjectionsListViewHolder,
         position: Int
     ) {
-        TODO("Not yet implemented")
+        val currentInfo = getItem(position)
+        holder.bind(currentInfo.id, currentInfo.name, currentInfo.date, currentInfo.dose)
     }
 
     class InjectionsListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
