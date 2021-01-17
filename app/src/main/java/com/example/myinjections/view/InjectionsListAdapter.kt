@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myinjections.R
@@ -43,6 +44,17 @@ class InjectionsListAdapter: ListAdapter<InjectionInfo,
             injectionName.text= name
             injectionDate.text = date
             injectionDose.text = dose.toString()
+        }
+    }
+
+    class InjectionsComparator : DiffUtil.ItemCallback<InjectionInfo>() {
+
+        override fun areItemsTheSame(oldItem: InjectionInfo, newItem: InjectionInfo): Boolean {
+            return oldItem == newItem
+        }
+
+        override fun areContentsTheSame(oldItem: InjectionInfo, newItem: InjectionInfo): Boolean {
+            return oldItem.id == newItem.id
         }
     }
 
