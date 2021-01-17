@@ -3,6 +3,7 @@ package com.example.myinjections.view.ui
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.myinjections.R
+import com.google.android.material.slider.Slider
 import kotlinx.android.synthetic.main.activity_add_injection.*
 import java.util.*
 
@@ -12,6 +13,13 @@ class AddInjectionActivity : AppCompatActivity() {
         setContentView(R.layout.activity_add_injection)
 
         setYearPickerValues()
+        setDoseSliderLabel()
+    }
+
+    private fun setDoseSliderLabel(){
+        dose_slider.setLabelFormatter { value: Float ->
+            return@setLabelFormatter "$value ml"
+        }
     }
 
     private fun setYearPickerValues(){
