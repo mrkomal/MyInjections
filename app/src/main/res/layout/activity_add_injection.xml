@@ -23,7 +23,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 style="@style/AddInjectionCardView.TextView"
-                android:text="#1 Insert name">
+                android:text="@string/header1">
             </TextView>
 
             <View
@@ -43,7 +43,7 @@
                 style="@style/AddInjectionCardView.BottomItem"
                 android:textAlignment="center"
                 android:gravity="center"
-                android:hint="#Injection's name">
+                android:hint="@string/hint_edittext1">
             </EditText>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
