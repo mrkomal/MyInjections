@@ -160,21 +160,25 @@
                 </View>
 
                 <RadioGroup
+                    android:id="@+id/obligatory_radio_group"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     style="@style/AddInjectionCardView.BottomItem">
 
                     <RadioButton
+                        android:id="@+id/positive_radio_button"
                         android:layout_width="66dp"
                         android:layout_height="wrap_content"
                         android:text="@string/radioButtonPos"
                         android:layout_marginRight="50dp"/>
 
                     <RadioButton
+                        android:id="@+id/negative_radio_button"
                         android:layout_width="60dp"
                         android:layout_height="wrap_content"
-                        android:text="@string/radioButtonNeg" />
+                        android:text="@string/radioButtonNeg"
+                        android:checked="true"/>
                 </RadioGroup>
             </LinearLayout>
         </androidx.cardview.widget.CardView>

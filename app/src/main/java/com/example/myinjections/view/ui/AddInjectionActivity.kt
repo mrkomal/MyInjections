@@ -1,8 +1,13 @@
 package com.example.myinjections.view.ui
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.TextUtils
 import android.util.Log
+import android.view.View
+import android.widget.RadioButton
+import android.widget.Toast
 import com.example.myinjections.R
 import com.google.android.material.slider.Slider
 import kotlinx.android.synthetic.main.activity_add_injection.*
@@ -15,6 +20,23 @@ class AddInjectionActivity : AppCompatActivity() {
         const val INSERT_BUTTON_TAG = "insert_button_pressed"
     }
 
+
+    private val listener: View.OnClickListener = View.OnClickListener { view ->
+        when (view.id) {
+            R.id.insert_button -> {
+                Log.d(INSERT_BUTTON_TAG, "Insert button was pressed.")
+
+                val replyIntent = Intent()
+                val injectionName = name_textView.text.toString()
+                val injectionYear = year_picker.value.toString()
+                val injectionDose = dose_slider.value.toDouble()
+                val isInjectionObligatory: String = getRadioButtonChoice()
+
+            }
+        }
+    }
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_injection)
@@ -24,10 +46,9 @@ class AddInjectionActivity : AppCompatActivity() {
         setDoseSliderLabel()
 
         //insert button pressed
-        insert_button.setOnClickListener {
-            Log.d(INSERT_BUTTON_TAG, "Insert button was pressed.")
-        }
+        insert_button.setOnClickListener(listener)
     }
+
 
     private fun setDoseSliderLabel(){
         dose_slider.setLabelFormatter { value: Float ->
@@ -35,11 +56,17 @@ class AddInjectionActivity : AppCompatActivity() {
         }
     }
 
+
     private fun setYearPickerValues(){
         val currentYear: Int = Calendar.getInstance().get(Calendar.YEAR)
         val gapBetweenYears: Int = 120
 
         year_picker.maxValue = currentYear
         year_picker.minValue = currentYear - gapBetweenYears
+    }
+
+
+    private fun getRadioButtonChoice(): String {
+        return findViewById<RadioButton>(obligatory_radio_group.checkedRadioButtonId).text.toString()
     }
 }
