@@ -1,5 +1,6 @@
 package com.example.myinjections.view.ui
 
+import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -25,6 +26,7 @@ class AddInjectionActivity : AppCompatActivity() {
         const val prefix = "myinjections/addinjectiondata"
         const val nameKey = "$prefix/name"
         const val yearKey = "$prefix/year"
+        const val doseKey = "$prefix/dose"
         const val isObligatoryKey = "$prefix/isObligatory"
     }
 
@@ -35,17 +37,27 @@ class AddInjectionActivity : AppCompatActivity() {
                 Log.d(INSERT_BUTTON_TAG, "Insert button was pressed.")
 
                 val replyIntent = Intent()
-                val injectionName = name_textView.text.toString()
-                val injectionYear = year_picker.value.toString()
-                val injectionDose = dose_slider.value.toDouble()
-                val isInjectionObligatory: String = getRadioButtonChoice()
 
-                if(TextUtils.isEmpty(injectionName)){
+                // check if user typed name
+                if(TextUtils.isEmpty(name_textView.text)){
                     val dialog = MissingNameDialogFragment()
                     dialog.show(supportFragmentManager,"MissingNameDialogFragment")
                     Log.d(INSERT_BUTTON_TAG, "Alert dialog displayed.")
                 } else {
+                    // get data defined by user
+                    val injectionName = name_textView.text.toString()
+                    val injectionYear = year_picker.value.toString()
+                    val injectionDose = dose_slider.value.toDouble()
+                    val isInjectionObligatory: String = getRadioButtonChoice()
 
+                    // pack data into replyIntent
+                    replyIntent.putExtra(nameKey, injectionName)
+                    replyIntent.putExtra(yearKey, injectionYear)
+                    replyIntent.putExtra(doseKey, injectionDose)
+                    replyIntent.putExtra(isObligatoryKey, isInjectionObligatory)
+
+                    setResult(Activity.RESULT_OK, replyIntent)
+                    finish()
                 }
             }
         }
