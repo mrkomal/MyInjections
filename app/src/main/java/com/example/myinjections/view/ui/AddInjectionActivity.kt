@@ -9,8 +9,10 @@ import android.view.View
 import android.widget.RadioButton
 import android.widget.Toast
 import com.example.myinjections.R
+import com.example.myinjections.view.dialogs.MissingNameDialogFragment
 import com.google.android.material.slider.Slider
 import kotlinx.android.synthetic.main.activity_add_injection.*
+import org.w3c.dom.Text
 import java.util.*
 
 class AddInjectionActivity : AppCompatActivity() {
@@ -32,6 +34,10 @@ class AddInjectionActivity : AppCompatActivity() {
                 val injectionDose = dose_slider.value.toDouble()
                 val isInjectionObligatory: String = getRadioButtonChoice()
 
+                if(TextUtils.isEmpty(injectionName)){
+                    val dialog = MissingNameDialogFragment()
+                    dialog.show(supportFragmentManager,"MissingNameDialogFragment")
+                }
             }
         }
     }
