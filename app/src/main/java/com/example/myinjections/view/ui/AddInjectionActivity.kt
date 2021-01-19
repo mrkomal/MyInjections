@@ -50,7 +50,7 @@ class AddInjectionActivity : AppCompatActivity() {
                     // get data defined by user
                     val injectionName = name_textView.text.toString()
                     val injectionYear = year_picker.value.toString()
-                    val injectionDose = dose_slider.value.toDouble()
+                    val injectionDose = dose_slider.value.toString()
                     val isInjectionObligatory: String = getRadioButtonChoice()
 
                     // pack data into replyIntent
@@ -61,6 +61,7 @@ class AddInjectionActivity : AppCompatActivity() {
 
                     setResult(Activity.RESULT_OK, replyIntent)
                     finish()
+                    Log.d(INSERT_BUTTON_TAG, "Data passed to another activity.")
                 }
             }
         }
