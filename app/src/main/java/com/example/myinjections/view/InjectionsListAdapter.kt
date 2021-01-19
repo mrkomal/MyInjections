@@ -45,7 +45,15 @@ class InjectionsListAdapter: ListAdapter<InjectionInfo,
             injectionName.text= name
             injectionDate.text = date
             injectionDose.text = dose.toString()
-            isInjectionObligatory.text = isObligatory
+
+            val obligatoryText = "Obligatory"
+            val optionalText = "Optional"
+
+            if(isObligatory == "Yes"){
+                isInjectionObligatory.text = obligatoryText
+            } else {
+                isInjectionObligatory.text = optionalText
+            }
         }
     }
 
