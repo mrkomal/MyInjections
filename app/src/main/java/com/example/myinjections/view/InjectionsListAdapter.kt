@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myinjections.R
 import com.example.myinjections.room.model.InjectionInfo
-import kotlinx.android.synthetic.main.injections_recyclerview_item.view.*
+import kotlinx.android.synthetic.main.injections_recycler_view_item.view.*
 
 class InjectionsListAdapter: ListAdapter<InjectionInfo,
         InjectionsListAdapter.InjectionsListViewHolder>(InjectionsComparator()) {
@@ -19,7 +19,7 @@ class InjectionsListAdapter: ListAdapter<InjectionInfo,
         viewType: Int
     ): InjectionsListAdapter.InjectionsListViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(
-            R.layout.injections_recyclerview_item,
+            R.layout.injections_recycler_view_item,
             parent,
             false)
         return InjectionsListViewHolder(view)
@@ -37,7 +37,7 @@ class InjectionsListAdapter: ListAdapter<InjectionInfo,
         val injectionId: TextView = itemView.id_textView
         val injectionName: TextView = itemView.name_textView
         val injectionDate: TextView = itemView.year_textView
-        val injectionDose: TextView = itemView.dose_textView4
+        val injectionDose: TextView = itemView.dose_textView
         val isInjectionObligatory: TextView = itemView.obligatory_textview
 
         fun bind(id: Int?, name: String?, date: String?, dose: Double?, isObligatory: String?) {
