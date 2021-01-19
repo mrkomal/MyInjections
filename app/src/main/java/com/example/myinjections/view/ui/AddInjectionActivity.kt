@@ -20,6 +20,12 @@ class AddInjectionActivity : AppCompatActivity() {
     companion object{
         //UI items tags
         const val INSERT_BUTTON_TAG = "insert_button_pressed"
+
+        //keys for data that is passed between activities
+        const val prefix = "myinjections/addinjectiondata"
+        const val nameKey = "$prefix/name"
+        const val yearKey = "$prefix/year"
+        const val isObligatoryKey = "$prefix/isObligatory"
     }
 
 
@@ -38,6 +44,8 @@ class AddInjectionActivity : AppCompatActivity() {
                     val dialog = MissingNameDialogFragment()
                     dialog.show(supportFragmentManager,"MissingNameDialogFragment")
                     Log.d(INSERT_BUTTON_TAG, "Alert dialog displayed.")
+                } else {
+
                 }
             }
         }
