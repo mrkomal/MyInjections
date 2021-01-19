@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "5e09dab3d4443307fa5ad5bfb71ac866",
+    "identityHash": "537cd55c7d77c56d106090eb9f13af2a",
     "entities": [
       {
         "tableName": "injections_table",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `date` TEXT NOT NULL, `dose` REAL NOT NULL DEFAULT Unknown)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `date` TEXT NOT NULL, `dose` REAL NOT NULL, `isObligatory` TEXT NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
@@ -30,8 +30,13 @@
             "fieldPath": "dose",
             "columnName": "dose",
             "affinity": "REAL",
-            "notNull": true,
-            "defaultValue": "Unknown"
+            "notNull": true
+          },
+          {
+            "fieldPath": "isObligatory",
+            "columnName": "isObligatory",
+            "affinity": "TEXT",
+            "notNull": true
           }
         ],
         "primaryKey": {
@@ -47,7 +52,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '5e09dab3d4443307fa5ad5bfb71ac866')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '537cd55c7d77c56d106090eb9f13af2a')"
     ]
   }
 }

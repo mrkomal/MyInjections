@@ -30,7 +30,7 @@ class InjectionsListAdapter: ListAdapter<InjectionInfo,
         position: Int
     ) {
         val currentInfo = getItem(position)
-        holder.bind(currentInfo.id, currentInfo.name, currentInfo.date, currentInfo.dose)
+        holder.bind(currentInfo.id, currentInfo.name, currentInfo.date, currentInfo.dose, currentInfo.isObligatory)
     }
 
     class InjectionsListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -38,12 +38,14 @@ class InjectionsListAdapter: ListAdapter<InjectionInfo,
         val injectionName: TextView = itemView.name_textView
         val injectionDate: TextView = itemView.year_textView
         val injectionDose: TextView = itemView.dose_textView4
+        val isInjectionObligatory: TextView = itemView.obligatory_textview
 
-        fun bind(id: Int?, name: String?, date: String?, dose: Double?) {
+        fun bind(id: Int?, name: String?, date: String?, dose: Double?, isObligatory: String?) {
             injectionId.text = id.toString()
             injectionName.text= name
             injectionDate.text = date
             injectionDose.text = dose.toString()
+            isInjectionObligatory.text = isObligatory
         }
     }
 
