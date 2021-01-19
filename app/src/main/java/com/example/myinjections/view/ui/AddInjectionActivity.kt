@@ -37,6 +37,7 @@ class AddInjectionActivity : AppCompatActivity() {
                 if(TextUtils.isEmpty(injectionName)){
                     val dialog = MissingNameDialogFragment()
                     dialog.show(supportFragmentManager,"MissingNameDialogFragment")
+                    Log.d(INSERT_BUTTON_TAG, "Alert dialog displayed.")
                 }
             }
         }
