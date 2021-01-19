@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/ElementsOnBackgroundPadding"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
 
     <LinearLayout
@@ -26,12 +26,12 @@
             android:layout_height="match_parent"
             android:gravity="center_horizontal"
             android:paddingLeft="4dp"
-            android:paddingTop="5dp"
+            android:paddingTop="8dp"
             android:paddingRight="8dp"
             android:paddingBottom="4dp"
             android:text="Error"
             android:textAlignment="center"
-            android:textSize="32sp"
+            android:textSize="25sp"
             android:textStyle="bold|italic"></TextView>
     </LinearLayout>
 
@@ -42,20 +42,10 @@
         android:gravity="center_horizontal"
         android:text="Injection\'s name is required."
         android:textAlignment="center"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout"
         android:paddingBottom="4dp">
     </TextView>
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        style="@style/ButtonDialog"
-        android:text="OK"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView">
-    </Button>
 </androidx.constraintlayout.widget.ConstraintLayout>

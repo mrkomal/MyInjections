@@ -7,6 +7,8 @@ import android.content.DialogInterface
 import android.os.Bundle
 import androidx.fragment.app.DialogFragment
 import com.example.myinjections.R
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.missing_name_alert_dialog_fragment.*
 
 class MissingNameDialogFragment : DialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -16,12 +18,10 @@ class MissingNameDialogFragment : DialogFragment() {
 
             // Pass null as the parent view because its going in the dialog layout
             builder.setView(inflater.inflate(R.layout.missing_name_alert_dialog_fragment, null))
-            builder.create()
-//            AlertDialog.Builder(it)
-//                .setTitle("Error")
-//                .setMessage("Injection\'s name is required.")
-//                .setIcon(R.drawable.sharp_error_black_36dp)
-//                .create()
+                .setNegativeButton("OK") { dialog, which ->
+                    dialog.cancel()
+                }
+                .create()
         }
     }
 }
