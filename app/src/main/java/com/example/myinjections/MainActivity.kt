@@ -44,8 +44,6 @@ class MainActivity : AppCompatActivity() {
         // Przypisujemy adapter do naszej listy
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
-        //Funckja do dodawania nowych wpisow
-        injectionsViewModel.insertInjectionInfo(InjectionInfo(0,"A","2020",0.2))
         //Observer
         injectionsViewModel.injectionsInfo.observe(this, Observer {
                 injectionsInfos -> injectionsInfos.let {
@@ -53,5 +51,10 @@ class MainActivity : AppCompatActivity() {
         }
         })
         ////////////////////
+    }
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
     }
 }
