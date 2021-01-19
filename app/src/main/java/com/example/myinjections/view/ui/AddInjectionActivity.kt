@@ -26,11 +26,11 @@ class AddInjectionActivity : AppCompatActivity() {
         const val INSERT_BUTTON_TAG = "insert_button_pressed"
 
         //keys for data that is passed between activities
-        const val prefix = "myinjections/addinjectiondata"
-        const val nameKey = "$prefix/name"
-        const val yearKey = "$prefix/year"
-        const val doseKey = "$prefix/dose"
-        const val isObligatoryKey = "$prefix/isObligatory"
+        const val prefix = "myinjections.addinjectiondata"
+        const val nameKey = "$prefix.name"
+        const val yearKey = "$prefix.year"
+        const val doseKey = "$prefix.dose"
+        const val isObligatoryKey = "$prefix.isObligatory"
     }
 
 
