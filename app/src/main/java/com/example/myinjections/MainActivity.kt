@@ -73,7 +73,8 @@ class MainActivity : AppCompatActivity() {
             val injectionObligatory = data.getStringExtra(AddInjectionActivity.isObligatoryKey).toString()
 
             // create new info instance and push it to database
-            val newInjectionInfo = InjectionInfo(0, injectionName, injectionYear, injectionDose)
+            val newInjectionInfo = InjectionInfo(0, injectionName, injectionYear,
+                injectionDose, injectionObligatory)
             injectionsViewModel.insertInjectionInfo(newInjectionInfo)
             Log.d(OBTAINED_DATA_TAG, "Data passed to database.")
         }
