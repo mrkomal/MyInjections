@@ -19,6 +19,9 @@ import java.util.*
 class AddInjectionActivity : AppCompatActivity() {
 
     companion object{
+        //request code
+        const val ACTIVITY_REQUEST_CODE = 1
+
         //UI items tags
         const val INSERT_BUTTON_TAG = "insert_button_pressed"
 
