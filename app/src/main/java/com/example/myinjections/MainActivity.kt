@@ -1,8 +1,10 @@
 package com.example.myinjections
 
+import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -18,6 +20,10 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
+    companion object{
+        const val OBTAINED_DATA_TAG = "reply_intent_received"
+    }
+
     private lateinit var injectionsViewModel: InjectionsViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,7 +32,7 @@ class MainActivity : AppCompatActivity() {
 
         add_injection_button.setOnClickListener {
             Intent(this, AddInjectionActivity::class.java).also {
-                startActivity(it)
+                startActivityForResult(it, AddInjectionActivity.ACTIVITY_REQUEST_CODE)
             }
         }
 
@@ -56,5 +62,20 @@ class MainActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+
+        if(requestCode == AddInjectionActivity.ACTIVITY_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            Log.d(OBTAINED_DATA_TAG, "Data from new injection has arrived.")
+
+            // unpack data
+            val injectionName = data!!.getStringExtra(AddInjectionActivity.nameKey).toString()
+            val injectionYear = data.getStringExtra(AddInjectionActivity.yearKey).toString()
+            val injectionDose = data.getStringExtra(AddInjectionActivity.doseKey)!!.toDouble()
+            val injectionObligatory = data.getStringExtra(AddInjectionActivity.isObligatoryKey).toString()
+
+            // create new info instance and push it to database
+            val newInjectionInfo = InjectionInfo(0, injectionName, injectionYear, injectionDose)
+            injectionsViewModel.insertInjectionInfo(newInjectionInfo)
+            Log.d(OBTAINED_DATA_TAG, "Data passed to database.")
+        }
     }
 }
