@@ -7,4 +7,5 @@
     <color name="colorTileCardView">#ffffff</color>
     <color name="colorWhite">#ffffff</color>
     <color name="black">#000000</color>
+    <color name="magenta">#e91e63</color>
 </resources>
