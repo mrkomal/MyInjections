@@ -49,4 +49,9 @@
     <style name="ButtonDialog.ButtonWithoutBorder" parent="Widget.AppCompat.Button.Borderless">
         <item name="android:textColor">@color/black</item>
     </style>
+
+    <style name="InjectionsRecyclerViewItemHeader">
+        <item name="android:textStyle">bold|italic</item>
+        <item name="android:textSize">32sp</item>
+    </style>
 </resources>
