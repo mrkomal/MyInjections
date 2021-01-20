@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myinjections.repository.InjectionsRepository
 import com.example.myinjections.room.model.InjectionInfo
-import com.example.myinjections.view.InjectionsListAdapter
+import com.example.myinjections.view.adapters.InjectionsListAdapter
 import com.example.myinjections.view.ui.AddInjectionActivity
 import com.example.myinjections.viewmodel.InjectionsViewModel
 import com.example.myinjections.viewmodel.InjectionsViewModelFactory
