@@ -53,7 +53,7 @@ class InjectionsListAdapter: ListAdapter<InjectionInfo,
             injectionId.text = id.toString().plus(space)
             injectionName.text= name.plus(space)
             injectionDate.text = date.plus(space)
-            injectionDose.text = dose.toString().plus(space)
+            injectionDose.text = dose.toString().plus(" ml").plus(space)
             illnessInformation.text = illness.toString().plus(space)
 
             val obligatoryText = "Obligatory"
