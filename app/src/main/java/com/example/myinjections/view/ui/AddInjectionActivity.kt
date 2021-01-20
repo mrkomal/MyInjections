@@ -53,10 +53,10 @@ class AddInjectionActivity : AppCompatActivity() {
                 } else {
                     // get data defined by user
                     val injectionName = nameField.toString()
-                    val injectionYear = illnessField.toString()
+                    val illnessInformation = illnessField.toString()
+                    val injectionYear = year_picker.value.toString()
                     val injectionDose = dose_slider.value.toString()
                     val isInjectionObligatory: String = getRadioButtonChoice()
-                    val illnessInformation = illness_textView.text.toString()
 
                     // pack data into replyIntent
                     replyIntent.putExtra(nameKey, injectionName)
