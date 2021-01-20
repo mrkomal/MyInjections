@@ -89,6 +89,16 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/name_textView"/>
 
+            <TextView
+                android:id="@+id/illness_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:text="Illness"
+                app:layout_constraintStart_toEndOf="@+id/year_textView"
+                app:layout_constraintTop_toTopOf="@+id/year_textView" />
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="30sp"

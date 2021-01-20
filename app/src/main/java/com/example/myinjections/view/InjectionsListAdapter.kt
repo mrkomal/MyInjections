@@ -31,7 +31,8 @@ class InjectionsListAdapter: ListAdapter<InjectionInfo,
         position: Int
     ) {
         val currentInfo = getItem(position)
-        holder.bind(currentInfo.id, currentInfo.name, currentInfo.date, currentInfo.dose, currentInfo.isObligatory)
+        holder.bind(currentInfo.id, currentInfo.name, currentInfo.date, currentInfo.dose,
+            currentInfo.isObligatory, currentInfo.illnessInformation)
     }
 
     class InjectionsListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -40,8 +41,10 @@ class InjectionsListAdapter: ListAdapter<InjectionInfo,
         val injectionDate: TextView = itemView.year_textView
         val injectionDose: TextView = itemView.dose_textView
         val isInjectionObligatory: TextView = itemView.obligatory_textview
+        val illnessInformation: TextView = itemView.illness_textview
 
-        fun bind(id: Int?, name: String?, date: String?, dose: Double?, isObligatory: String?) {
+        fun bind(id: Int?, name: String?, date: String?, dose: Double?, isObligatory: String?,
+                    illness: String?) {
 
             //italic font that is used in application doesn't fit in TextViews (last letter is cut)
             //to avoid that a space has to be added after each word that will be displayed
@@ -51,6 +54,7 @@ class InjectionsListAdapter: ListAdapter<InjectionInfo,
             injectionName.text= name.plus(space)
             injectionDate.text = date.plus(space)
             injectionDose.text = dose.toString().plus(space)
+            illnessInformation.text = illness.toString().plus(space)
 
             val obligatoryText = "Obligatory"
             val optionalText = "Optional"
