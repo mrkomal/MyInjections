@@ -31,6 +31,7 @@ class AddInjectionActivity : AppCompatActivity() {
         const val yearKey = "$prefix.year"
         const val doseKey = "$prefix.dose"
         const val isObligatoryKey = "$prefix.isObligatory"
+        const val illnessKey = "$prefix.illness"
     }
 
 
@@ -52,12 +53,14 @@ class AddInjectionActivity : AppCompatActivity() {
                     val injectionYear = year_picker.value.toString()
                     val injectionDose = dose_slider.value.toString()
                     val isInjectionObligatory: String = getRadioButtonChoice()
+                    val illnessInformation = illness_textView.text.toString()
 
                     // pack data into replyIntent
                     replyIntent.putExtra(nameKey, injectionName)
                     replyIntent.putExtra(yearKey, injectionYear)
                     replyIntent.putExtra(doseKey, injectionDose)
                     replyIntent.putExtra(isObligatoryKey, isInjectionObligatory)
+                    replyIntent.putExtra(illnessKey, illnessInformation)
 
                     setResult(Activity.RESULT_OK, replyIntent)
                     finish()
