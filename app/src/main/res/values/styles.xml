@@ -34,6 +34,7 @@
 
     <style name="BottomCardViewRecyclerView">
         <item name="cardBackgroundColor">@color/colorAccent</item>
+        <item name="android:layout_marginTop">16dp</item>
     </style>
 
     <style name="AddInjectionCardView.LayoutPadding">
