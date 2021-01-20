@@ -11,6 +11,7 @@ import com.example.myinjections.R
 import com.example.myinjections.room.model.InjectionInfo
 import kotlinx.android.synthetic.main.injections_recycler_view_item.view.*
 
+
 class InjectionsListAdapter: ListAdapter<InjectionInfo,
         InjectionsListAdapter.InjectionsListViewHolder>(InjectionsComparator()) {
 
@@ -41,18 +42,23 @@ class InjectionsListAdapter: ListAdapter<InjectionInfo,
         val isInjectionObligatory: TextView = itemView.obligatory_textview
 
         fun bind(id: Int?, name: String?, date: String?, dose: Double?, isObligatory: String?) {
-            injectionId.text = id.toString()
-            injectionName.text= name
-            injectionDate.text = date
-            injectionDose.text = dose.toString()
+
+            //italic font that is used in application doesn't fit in TextViews (last letter is cut)
+            //to avoid that a space has to be added after each word that will be displayed
+            val space = " "
+
+            injectionId.text = id.toString().plus(space)
+            injectionName.text= name.plus(space)
+            injectionDate.text = date.plus(space)
+            injectionDose.text = dose.toString().plus(space)
 
             val obligatoryText = "Obligatory"
             val optionalText = "Optional"
 
             if(isObligatory == "Yes"){
-                isInjectionObligatory.text = obligatoryText
+                isInjectionObligatory.text = obligatoryText.plus(space)
             } else {
-                isInjectionObligatory.text = optionalText
+                isInjectionObligatory.text = optionalText.plus(space)
             }
         }
     }
