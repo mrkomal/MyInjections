@@ -43,14 +43,17 @@ class AddInjectionActivity : AppCompatActivity() {
                 val replyIntent = Intent()
 
                 // check if user typed name
-                if(TextUtils.isEmpty(name_textView.text)){
+                val nameField = name_textView.text.trim()
+                val illnessField = illness_textView.text.trim()
+
+                if(TextUtils.isEmpty(nameField) || TextUtils.isEmpty(illnessField)){
                     val dialog = MissingNameDialogFragment()
                     dialog.show(supportFragmentManager,"MissingNameDialogFragment")
                     Log.d(INSERT_BUTTON_TAG, "Alert dialog displayed.")
                 } else {
                     // get data defined by user
-                    val injectionName = name_textView.text.toString()
-                    val injectionYear = year_picker.value.toString()
+                    val injectionName = nameField.toString()
+                    val injectionYear = illnessField.toString()
                     val injectionDose = dose_slider.value.toString()
                     val isInjectionObligatory: String = getRadioButtonChoice()
                     val illnessInformation = illness_textView.text.toString()
