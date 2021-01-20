@@ -1,4 +1,4 @@
-package com.example.myinjections.view
+package com.example.myinjections.view.adapters
 
 import android.view.LayoutInflater
 import android.view.View
@@ -13,21 +13,25 @@ import kotlinx.android.synthetic.main.injections_recycler_view_item.view.*
 
 
 class InjectionsListAdapter: ListAdapter<InjectionInfo,
-        InjectionsListAdapter.InjectionsListViewHolder>(InjectionsComparator()) {
+        InjectionsListAdapter.InjectionsListViewHolder>(
+    InjectionsComparator()
+) {
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): InjectionsListAdapter.InjectionsListViewHolder {
+    ): InjectionsListViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(
             R.layout.injections_recycler_view_item,
             parent,
             false)
-        return InjectionsListViewHolder(view)
+        return InjectionsListViewHolder(
+            view
+        )
     }
 
     override fun onBindViewHolder(
-        holder: InjectionsListAdapter.InjectionsListViewHolder,
+        holder: InjectionsListViewHolder,
         position: Int
     ) {
         val currentInfo = getItem(position)
