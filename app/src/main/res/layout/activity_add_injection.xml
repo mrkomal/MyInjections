@@ -11,6 +11,47 @@
         android:gravity="start">
 
         <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/AddInjectionCardView">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            style="@style/AddInjectionCardView.LayoutPadding">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/AddInjectionCardView.TextView"
+                android:text="@string/header1">
+            </TextView>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/colorAccent"
+                android:layout_gravity="center">
+            </View>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="8dp">
+            </View>
+
+            <EditText
+                android:id="@+id/name_textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/AddInjectionCardView.BottomItem"
+                android:textAlignment="center"
+                android:gravity="center"
+                android:hint="@string/hint_edittext1">
+            </EditText>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/AddInjectionCardView">
@@ -25,7 +66,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     style="@style/AddInjectionCardView.TextView"
-                    android:text="@string/header1">
+                    android:text="@string/header5">
                 </TextView>
 
                 <View
@@ -40,16 +81,17 @@
                 </View>
 
                 <EditText
-                    android:id="@+id/name_textView"
+                    android:id="@+id/illness_textView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     style="@style/AddInjectionCardView.BottomItem"
                     android:textAlignment="center"
                     android:gravity="center"
-                    android:hint="@string/hint_edittext1">
+                    android:hint="@string/hint_edittext5">
                 </EditText>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
+
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
