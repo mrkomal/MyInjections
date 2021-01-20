@@ -71,10 +71,11 @@ class MainActivity : AppCompatActivity() {
             val injectionYear = data.getStringExtra(AddInjectionActivity.yearKey).toString()
             val injectionDose = data.getStringExtra(AddInjectionActivity.doseKey)!!.toDouble()
             val injectionObligatory = data.getStringExtra(AddInjectionActivity.isObligatoryKey).toString()
+            val illnessInformation = data.getStringExtra(AddInjectionActivity.illnessKey).toString()
 
             // create new info instance and push it to database
             val newInjectionInfo = InjectionInfo(0, injectionName, injectionYear,
-                injectionDose, injectionObligatory)
+                injectionDose, injectionObligatory, illnessInformation)
             injectionsViewModel.insertInjectionInfo(newInjectionInfo)
             Log.d(OBTAINED_DATA_TAG, "Data passed to database.")
         }
