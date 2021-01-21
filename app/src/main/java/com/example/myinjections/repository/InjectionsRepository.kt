@@ -6,7 +6,7 @@ import com.example.myinjections.room.model.InjectionInfo
 import com.example.myinjections.room.model.InjectionsDao
 import kotlinx.coroutines.flow.Flow
 
-class InjectionsRepository (application: Application){
+class InjectionsRepository(application: Application) {
 
     private var injectionsDAO: InjectionsDao
 
