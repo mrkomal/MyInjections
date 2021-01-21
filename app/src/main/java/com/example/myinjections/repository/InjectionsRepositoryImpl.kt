@@ -6,7 +6,7 @@ import com.example.myinjections.room.model.InjectionInfo
 import com.example.myinjections.room.model.InjectionsDao
 import kotlinx.coroutines.flow.Flow
 
-class InjectionsRepository(application: Application) {
+class InjectionsRepositoryImpl(application: Application): InjectionsRepository {
 
     private var injectionsDAO: InjectionsDao
 
@@ -15,9 +15,9 @@ class InjectionsRepository(application: Application) {
         injectionsDAO = injectionDatabase.injectionsDao()
     }
 
-    fun getAllInjectionInfo() : Flow<List<InjectionInfo>> = injectionsDAO.getAllInfo()
+    override fun getAllInjectionInfo() : Flow<List<InjectionInfo>> = injectionsDAO.getAllInfo()
 
-    suspend fun insertInjectionInfo(injectionInfo: InjectionInfo){
+    override suspend fun insertInjectionInfo(injectionInfo: InjectionInfo){
         injectionsDAO.insert(injectionInfo)
     }
 
