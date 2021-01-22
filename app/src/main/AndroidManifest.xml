@@ -13,11 +13,11 @@
         <activity android:name=".viewmodel.BaseActivity"></activity>
         <activity
             android:name=".view.ui.DisplayInjectionActivity"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".view.ui.MenuActivity" />
         <activity
             android:name=".view.ui.AddInjectionActivity"
-            android:parentActivityName=".MainActivity" />
-        <activity android:name=".MainActivity">
+            android:parentActivityName=".view.ui.MenuActivity" />
+        <activity android:name=".view.ui.MenuActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

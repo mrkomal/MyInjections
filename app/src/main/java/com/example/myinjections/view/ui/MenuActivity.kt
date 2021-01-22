@@ -1,62 +1,38 @@
-package com.example.myinjections
+package com.example.myinjections.view.ui
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.example.myinjections.view.adapters.InjectionsListAdapter
-import com.example.myinjections.view.ui.AddInjectionActivity
-import com.example.myinjections.viewmodel.BaseActivity
+import android.view.View
+import androidx.appcompat.app.AppCompatActivity
+import com.example.myinjections.R
 import kotlinx.android.synthetic.main.activity_menu.*
 
-class MenuActivity : BaseActivity() {
+class MenuActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_menu)
 
-        add_injection_button.setOnClickListener {
-            Intent(this, AddInjectionActivity::class.java).also {
-                startActivity(it)
-            }
-        }
-
-        //RecyclerView
-        val recyclerView = findViewById<RecyclerView>(R.id.temporary_recyclerview)
-        // Adapter listy
-        val adapter = InjectionsListAdapter()
-        // Przypisujemy adapter do naszej listy
-        recyclerView.adapter = adapter
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        //Observer
-        injectionsViewModel.injectionsInfo.observe(this, Observer {
-                injectionsInfos -> injectionsInfos.let {
-            adapter.submitList(it)
-        }
-        })
-        ////////////////////
+        // Click listeners for menu buttons
+        display_injections_button.setOnClickListener(this)
+        add_injection_button.setOnClickListener(this)
     }
 
+    override fun onClick(v: View) {
+        when(v.id) {
 
-//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-//        super.onActivityResult(requestCode, resultCode, data)
-//
-//        if(requestCode == AddInjectionActivity.ACTIVITY_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
-//            Log.d(OBTAINED_DATA_TAG, "Data from new injection has arrived.")
-//
-//            // unpack data
-//            val injectionName = data!!.getStringExtra(AddInjectionActivity.nameKey).toString()
-//            val injectionYear = data.getStringExtra(AddInjectionActivity.yearKey).toString()
-//            val injectionDose = data.getStringExtra(AddInjectionActivity.doseKey)!!.toDouble()
-//            val injectionObligatory = data.getStringExtra(AddInjectionActivity.isObligatoryKey).toString()
-//            val illnessInformation = data.getStringExtra(AddInjectionActivity.illnessKey).toString()
-//
-//            // create new info instance and push it to database
-//            val newInjectionInfo = InjectionInfo(0, injectionName, injectionYear,
-//                injectionDose, injectionObligatory, illnessInformation)
-//            injectionsViewModel.insertInjectionInfo(newInjectionInfo)
-//            Log.d(OBTAINED_DATA_TAG, "Data passed to database.")
-//        }
-//    }
+            R.id.display_injections_button -> {
+                Intent(this, DisplayInjectionActivity::class.java).also {
+                    startActivity(it)
+                }
+            }
+
+            R.id.add_injection_button -> {
+                Intent(this, AddInjectionActivity::class.java).also {
+                    startActivity(it)
+                }
+            }
+        }
+    }
+
 }
