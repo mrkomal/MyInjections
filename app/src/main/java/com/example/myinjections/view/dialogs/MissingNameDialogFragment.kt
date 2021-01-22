@@ -1,16 +1,12 @@
 package com.example.myinjections.view.dialogs
 
-import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.app.Dialog
-import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.DialogFragment
 import com.example.myinjections.R
 import com.example.myinjections.view.ui.AddInjectionActivity
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.missing_name_alert_dialog_fragment.*
 
 class MissingNameDialogFragment : DialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
