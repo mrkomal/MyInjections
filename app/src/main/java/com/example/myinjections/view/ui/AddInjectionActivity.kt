@@ -1,37 +1,22 @@
 package com.example.myinjections.view.ui
 
-import android.app.Activity
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
 import android.widget.RadioButton
-import android.widget.Toast
+import com.example.myinjections.viewmodel.BaseActivity
 import com.example.myinjections.R
+import com.example.myinjections.room.model.InjectionInfo
 import com.example.myinjections.view.dialogs.MissingNameDialogFragment
-import com.google.android.material.slider.Slider
 import kotlinx.android.synthetic.main.activity_add_injection.*
-import org.w3c.dom.Text
 import java.util.*
 
-class AddInjectionActivity : AppCompatActivity() {
+class AddInjectionActivity : BaseActivity() {
 
     companion object{
-        //request code
-        const val ACTIVITY_REQUEST_CODE = 1
-
         //UI items tags
         const val INSERT_BUTTON_TAG = "insert_button_pressed"
-
-        //keys for data that is passed between activities
-        const val prefix = "myinjections.addinjectiondata"
-        const val nameKey = "$prefix.name"
-        const val yearKey = "$prefix.year"
-        const val doseKey = "$prefix.dose"
-        const val isObligatoryKey = "$prefix.isObligatory"
-        const val illnessKey = "$prefix.illness"
     }
 
 
@@ -40,13 +25,12 @@ class AddInjectionActivity : AppCompatActivity() {
             R.id.insert_button -> {
                 Log.d(INSERT_BUTTON_TAG, "Insert button was pressed.")
 
-                val replyIntent = Intent()
-
                 // check if user typed name
                 val nameField = name_textView.text.trim()
                 val illnessField = illness_textView.text.trim()
 
                 if(TextUtils.isEmpty(nameField) || TextUtils.isEmpty(illnessField)){
+                    //display dialog about missing information
                     val dialog = MissingNameDialogFragment()
                     dialog.show(supportFragmentManager,"MissingNameDialogFragment")
                     Log.d(INSERT_BUTTON_TAG, "Alert dialog displayed.")
@@ -56,16 +40,17 @@ class AddInjectionActivity : AppCompatActivity() {
                     val illnessInformation = illnessField.toString()
                     val injectionYear = year_picker.value.toString()
                     val injectionDose = dose_slider.value.toString()
+                        .format("%.2f")
+                        .toDouble()
                     val isInjectionObligatory: String = getRadioButtonChoice()
 
-                    // pack data into replyIntent
-                    replyIntent.putExtra(nameKey, injectionName)
-                    replyIntent.putExtra(yearKey, injectionYear)
-                    replyIntent.putExtra(doseKey, injectionDose)
-                    replyIntent.putExtra(isObligatoryKey, isInjectionObligatory)
-                    replyIntent.putExtra(illnessKey, illnessInformation)
+                    //create new InjectionInfo object and pass it to database with use of viewmodel
+                    injectionsViewModel.insertInjectionInfo(
+                        InjectionInfo(0, injectionName, injectionYear, injectionDose,
+                            isInjectionObligatory, illnessInformation)
+                    )
 
-                    setResult(Activity.RESULT_OK, replyIntent)
+                    //finish activity
                     finish()
                     Log.d(INSERT_BUTTON_TAG, "Data passed to another activity.")
                 }
@@ -96,10 +81,11 @@ class AddInjectionActivity : AppCompatActivity() {
 
     private fun setYearPickerValues(){
         val currentYear: Int = Calendar.getInstance().get(Calendar.YEAR)
-        val gapBetweenYears: Int = 120
+        val gapBetweenYears = 120
 
         year_picker.maxValue = currentYear
         year_picker.minValue = currentYear - gapBetweenYears
+        year_picker.value = currentYear
     }
 
 

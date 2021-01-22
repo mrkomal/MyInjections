@@ -8,34 +8,19 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.myinjections.view.adapters.InjectionsListAdapter
 import com.example.myinjections.view.ui.AddInjectionActivity
 import com.example.myinjections.viewmodel.BaseActivity
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_menu.*
 
-class MainActivity : BaseActivity() {
-
-//    companion object{
-//        const val OBTAINED_DATA_TAG = "reply_intent_received"
-//    }
-
-    //private lateinit var injectionsViewModel: InjectionsViewModel
+class MenuActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_menu)
 
         add_injection_button.setOnClickListener {
             Intent(this, AddInjectionActivity::class.java).also {
                 startActivity(it)
             }
         }
-
-        ///////////////////// TEMP
-        //Injection ViewModel
-//        injectionsViewModel = ViewModelProvider(
-//            this,
-//            InjectionsViewModelFactory(InjectionsRepositoryImpl(get()))
-//        )
-//            .get(InjectionsViewModel::class.java)
-
 
         //RecyclerView
         val recyclerView = findViewById<RecyclerView>(R.id.temporary_recyclerview)
