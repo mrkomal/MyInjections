@@ -77,4 +77,10 @@
         <item name="android:textStyle">bold|italic</item>
         <item name="android:textSize">32sp</item>
     </style>
+
+    <style name="MenuButtonStyle" parent="Widget.MaterialComponents.Button">
+        <item name="android:background">@drawable/buttons_shape</item>
+        <item name="android:layout_marginTop">16dp</item>
+    </style>
+
 </resources>
