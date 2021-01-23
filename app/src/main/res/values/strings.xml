@@ -2,6 +2,10 @@
     //app
     <string name="app_name">MyInjections</string>
 
+    //menu activity
+    <string name="button_add">Add</string>
+    <string name="button_display">Display</string>
+
     //add injection activity
     <string name="header1">#1 Insert name</string>
     <string name="hint_edittext1">Injection\'s name</string>
