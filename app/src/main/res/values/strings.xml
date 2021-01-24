@@ -8,6 +8,7 @@
     <string name="button_display">Display</string>
 
     //add injection activity
+    <string name="toolbar_title_add_injection">ADD NEW INJECTION "</string>
     <string name="header1">#1 Insert name</string>
     <string name="hint_edittext1">Injection\'s name</string>
     <string name="header5">#2 Disease that vaccine prevent from</string>

@@ -1,10 +1,12 @@
 package com.example.myinjections.view.ui
 
+import android.app.ActionBar
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
 import android.widget.RadioButton
+import android.widget.Toolbar
 import com.example.myinjections.viewmodel.BaseActivity
 import com.example.myinjections.R
 import com.example.myinjections.room.model.InjectionInfo
@@ -63,8 +65,13 @@ class AddInjectionActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_injection)
 
-        //Setting action bar title
-        supportActionBar?.title = "NEW INJECTION"
+        //Setting toolbar
+        val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.add_injection_toolbar)
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+        toolbar.setNavigationOnClickListener {
+            finish()
+        }
 
         //UI items settings
         setYearPickerValues()
