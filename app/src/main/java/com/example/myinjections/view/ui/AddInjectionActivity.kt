@@ -63,6 +63,9 @@ class AddInjectionActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_injection)
 
+        //Setting action bar title
+        supportActionBar?.title = "NEW INJECTION"
+
         //UI items settings
         setYearPickerValues()
         setDoseSliderLabel()

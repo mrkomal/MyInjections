@@ -13,6 +13,9 @@ class MenuActivity : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_menu)
 
+        //setting action bar text
+        supportActionBar?.title = "MENU"
+
         // Click listeners for menu buttons
         display_injections_button.setOnClickListener(this)
         add_injection_button.setOnClickListener(this)
