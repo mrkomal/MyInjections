@@ -14,8 +14,13 @@ class DisplayInjectionActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_display_injection)
 
-        //Setting action bar title
-        supportActionBar?.title = "MY INJECTIONS"
+        //Setting toolbar
+        val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.display_injections_toolbar)
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+        toolbar.setNavigationOnClickListener {
+            finish()
+        }
 
         // RecyclerView
         val recyclerView = findViewById<RecyclerView>(R.id.injections_recyclerview)
