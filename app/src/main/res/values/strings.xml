@@ -3,6 +3,7 @@
     <string name="app_name">MyInjections</string>
 
     //menu activity
+    <string name="toolbar_title_menu">MENU "</string>
     <string name="button_add">Add</string>
     <string name="button_display">Display</string>
 
