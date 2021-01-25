@@ -1,7 +1,7 @@
 package com.example.myinjections.view.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -37,5 +37,10 @@ class DisplayInjectionActivity : BaseActivity() {
             injectionsInfos.let { adapter.submitList(it) }
         })
 
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.filter_menu, menu)
+        return super.onCreateOptionsMenu(menu)
     }
 }

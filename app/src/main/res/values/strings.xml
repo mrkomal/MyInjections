@@ -22,4 +22,5 @@
 
     //display injections activity
     <string name="toolbar_title_display_injections">MY INJECTIONS "</string>
+    <string name="menu_sort_by_name">Sort by name</string>
 </resources>
