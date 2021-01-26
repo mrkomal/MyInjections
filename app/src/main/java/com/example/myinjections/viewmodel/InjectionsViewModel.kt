@@ -21,7 +21,7 @@ class InjectionsViewModel(private val repository: InjectionsRepository) : ViewMo
     // This value is required to be created while launching as it will be later used to perform sorting on it.
     private val injectionsInfo = repository.getAllInjectionInfo().asLiveData()
 
-    // Result LiveData that has observer. LiveData changes depending on passed filtering type.
+    // Result LiveData that has observer. LiveData changes depending on passed sort type.
     private val _resultInjectionInformation: LiveData<List<InjectionInfo>> =
         Transformations.switchMap(chosenFilterType){ choice ->
             when(choice) {
@@ -32,7 +32,7 @@ class InjectionsViewModel(private val repository: InjectionsRepository) : ViewMo
     val resultInjectionInformation: LiveData<List<InjectionInfo>>
         get() = _resultInjectionInformation
 
-    // Variables that are used for other types of filtration than DEFAULT.
+    // Variables that are used for other types of sorting than DEFAULT.
     // Initialized only when they are required.
     private val injectionInfoSortedByName by lazy {
         injectionsInfo.map { list ->
@@ -43,7 +43,7 @@ class InjectionsViewModel(private val repository: InjectionsRepository) : ViewMo
     }
 
 
-    // Functions for setting filtration type (data order is changed after triggering them).
+    // Functions for setting sort type (data order is changed after triggering them).
     fun sortInjectionsInfoByName() { chosenFilterType.value = SortType.BY_NAME }
 
 
