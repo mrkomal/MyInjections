@@ -8,7 +8,7 @@ import kotlinx.coroutines.launch
 
 enum class SortType {
     //enum for declaring possible filtering options for injections data that will be displayed on the screen
-    DEFAULT, BY_NAME, BY_YEAR
+    DEFAULT, BY_NAME, BY_YEAR, BY_DOSE
 }
 
 
@@ -28,6 +28,7 @@ class InjectionsViewModel(private val repository: InjectionsRepository) : ViewMo
                 SortType.DEFAULT -> injectionsInfo
                 SortType.BY_NAME -> injectionInfoSortedByName
                 SortType.BY_YEAR -> injectionInfoSortedByYear
+                SortType.BY_DOSE -> injectionInfoSortedByDose
             }
     }
     val resultInjectionInformation: LiveData<List<InjectionInfo>>
@@ -51,10 +52,20 @@ class InjectionsViewModel(private val repository: InjectionsRepository) : ViewMo
         }
     }
 
+    private val injectionInfoSortedByDose by lazy {
+        injectionsInfo.map { list ->
+            list.sortedWith(
+                compareBy { it.dose }
+            )
+        }
+    }
+
     // Functions for setting sort type (data order is changed after triggering them).
     fun sortInjectionsInfoByName() { chosenFilterType.value = SortType.BY_NAME }
 
     fun sortInjectionsInfoByYear() { chosenFilterType.value = SortType.BY_YEAR }
+
+    fun sortInjectionInfoByDose() { chosenFilterType.value = SortType.BY_DOSE }
 
     // Other
     fun insertInjectionInfo(injectionInfo: InjectionInfo) = viewModelScope.launch {

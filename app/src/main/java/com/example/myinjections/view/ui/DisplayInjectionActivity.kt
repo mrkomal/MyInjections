@@ -58,6 +58,10 @@ class DisplayInjectionActivity : BaseActivity() {
                 injectionsViewModel.sortInjectionsInfoByYear()
                 true
             }
+            R.id.sort_by_dose_button -> {
+                injectionsViewModel.sortInjectionInfoByDose()
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }
