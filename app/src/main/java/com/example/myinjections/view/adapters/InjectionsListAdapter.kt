@@ -47,7 +47,7 @@ class InjectionsListAdapter: ListAdapter<InjectionInfo,
         val isInjectionObligatory: TextView = itemView.obligatory_textview
         val illnessInformation: TextView = itemView.illness_textview
 
-        fun bind(id: Int?, name: String?, date: String?, dose: Double?, isObligatory: String?,
+        fun bind(id: Int?, name: String?, date: String?, dose: Double?, isObligatory: Boolean?,
                     illness: String?) {
 
             //italic font that is used in application doesn't fit in TextViews (last letter is cut)
@@ -63,7 +63,7 @@ class InjectionsListAdapter: ListAdapter<InjectionInfo,
             val obligatoryText = "Obligatory"
             val optionalText = "Optional"
 
-            if(isObligatory == "Yes"){
+            if(isObligatory == true){
                 isInjectionObligatory.text = obligatoryText.plus(space)
             } else {
                 isInjectionObligatory.text = optionalText.plus(space)

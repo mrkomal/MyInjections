@@ -1,5 +1,6 @@
 package com.example.myinjections.view.ui
 
+import android.annotation.SuppressLint
 import android.app.ActionBar
 import android.os.Bundle
 import android.text.TextUtils
@@ -44,7 +45,7 @@ class AddInjectionActivity : BaseActivity() {
                     val injectionDose = dose_slider.value.toString()
                         .format("%.2f")
                         .toDouble()
-                    val isInjectionObligatory: String = getRadioButtonChoice()
+                    val isInjectionObligatory: Boolean = getRadioButtonChoice()
 
                     //create new InjectionInfo object and pass it to database with use of viewmodel
                     injectionsViewModel.insertInjectionInfo(
@@ -99,7 +100,12 @@ class AddInjectionActivity : BaseActivity() {
     }
 
 
-    private fun getRadioButtonChoice(): String {
-        return findViewById<RadioButton>(obligatory_radio_group.checkedRadioButtonId).text.toString()
+    @SuppressLint("ResourceType")
+    private fun getRadioButtonChoice(): Boolean {
+        when(findViewById<RadioButton>(obligatory_radio_group.checkedRadioButtonId).text.toString()) {
+            resources.getString(R.string.radioButtonPos) -> return true
+            resources.getString(R.string.radioButtonNeg) -> return false
+        }
+        return false
     }
 }
