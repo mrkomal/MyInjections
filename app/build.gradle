@@ -94,4 +94,11 @@ dependencies {
     implementation "org.koin:koin-androidx-viewmodel:$koin_version"
     // Koin AndroidX Fragment Factory
     implementation "org.koin:koin-androidx-fragment:$koin_version"
+
+    //Testing
+    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.4.2'
+    testImplementation "androidx.arch.core:core-testing:$rootProject.coreTestingVersion"
+    testImplementation "junit:junit:$rootProject.junitVersion"
+    testImplementation "org.koin:koin-test:$koin_version"
+    testImplementation 'org.mockito:mockito-core:2.28.2'
 }
