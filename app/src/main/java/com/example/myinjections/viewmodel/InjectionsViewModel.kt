@@ -1,24 +1,57 @@
 package com.example.myinjections.viewmodel
 
-import androidx.arch.core.util.Function
 import androidx.lifecycle.*
 import com.example.myinjections.repository.InjectionsRepository
 import com.example.myinjections.room.model.InjectionInfo
 import kotlinx.coroutines.launch
 
+
+enum class SortType {
+    //enum for declaring possible filtering options for injections data that will be displayed on the screen
+    DEFAULT, BY_NAME
+}
+
+
 class InjectionsViewModel(private val repository: InjectionsRepository) : ViewModel() {
 
-    var injectionsInfo: LiveData<List<InjectionInfo>> = repository.getAllInjectionInfo().asLiveData()
+    // Setting filter type to default while launching ViewModel.
+    private var chosenFilterType = MutableLiveData<SortType>(SortType.DEFAULT)
 
+    // Get information from repository the way it is stored in DB (default filter).
+    // This value is required to be created while launching as it will be later used to perform sorting on it.
+    private val injectionsInfo = repository.getAllInjectionInfo().asLiveData()
+
+    // Result LiveData that has observer. LiveData changes depending on passed filtering type.
+    private val _resultInjectionInformation: LiveData<List<InjectionInfo>> =
+        Transformations.switchMap(chosenFilterType){ choice ->
+            when(choice) {
+                SortType.DEFAULT -> injectionsInfo
+                SortType.BY_NAME -> injectionInfoSortedByName
+            }
+    }
+    val resultInjectionInformation: LiveData<List<InjectionInfo>>
+        get() = _resultInjectionInformation
+
+    // Variables that are used for other types of filtration than DEFAULT.
+    // Initialized only when they are required.
+    private val injectionInfoSortedByName by lazy {
+        injectionsInfo.map { list ->
+            list.sortedWith(
+                compareBy { it.name }
+            )
+        }
+    }
+
+
+    // Functions for setting filtration type (data order is changed after triggering them).
+    fun sortInjectionsInfoByName() { chosenFilterType.value = SortType.BY_NAME }
+
+
+    // Other
     fun insertInjectionInfo(injectionInfo: InjectionInfo) = viewModelScope.launch {
         repository.insertInjectionInfo(injectionInfo)
     }
 
-    fun sortInjectionsInfoByName(){
-        injectionsInfo = Transformations.map(injectionsInfo) { it ->
-            it.sortedBy { it.name }
-        }
-    }
 
 }
 
