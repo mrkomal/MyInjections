@@ -1,5 +1,6 @@
 package com.example.myinjections.viewmodel
 
+import androidx.arch.core.util.Function
 import androidx.lifecycle.*
 import com.example.myinjections.repository.InjectionsRepository
 import com.example.myinjections.room.model.InjectionInfo
@@ -11,6 +12,12 @@ class InjectionsViewModel(private val repository: InjectionsRepository) : ViewMo
 
     fun insertInjectionInfo(injectionInfo: InjectionInfo) = viewModelScope.launch {
         repository.insertInjectionInfo(injectionInfo)
+    }
+
+    fun sortInjectionsInfoByName(){
+        injectionsInfo = Transformations.map(injectionsInfo) { it ->
+            it.sortedBy { it.name }
+        }
     }
 
 }
