@@ -42,6 +42,7 @@ class AddInjectionActivity : BaseActivity() {
                     val injectionName = nameField.toString()
                     val illnessInformation = illnessField.toString()
                     val injectionYear = year_picker.value.toString()
+                        .toInt()
                     val injectionDose = dose_slider.value.toString()
                         .format("%.2f")
                         .toDouble()
