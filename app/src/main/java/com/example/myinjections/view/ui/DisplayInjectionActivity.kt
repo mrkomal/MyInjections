@@ -54,6 +54,10 @@ class DisplayInjectionActivity : BaseActivity() {
                 injectionsViewModel.sortInjectionsInfoByName()
                 true
             }
+            R.id.sort_by_year -> {
+                injectionsViewModel.sortInjectionsInfoByYear()
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }
