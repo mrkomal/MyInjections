@@ -2,6 +2,7 @@ package com.example.myinjections.view.ui
 
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -33,14 +34,28 @@ class DisplayInjectionActivity : BaseActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
 
         // Creating observer for InjectionsViewModel data
-        injectionsViewModel.injectionsInfo.observe(this, Observer { injectionsInfos ->
+        injectionsViewModel.resultInjectionInformation.observe(this, Observer { injectionsInfos ->
             injectionsInfos.let { adapter.submitList(it) }
         })
 
     }
 
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.filter_menu, menu)
         return super.onCreateOptionsMenu(menu)
     }
+
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // Handle item selection
+        return when (item.itemId) {
+            R.id.sort_by_name_button -> {
+                injectionsViewModel.sortInjectionsInfoByName()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
 }
