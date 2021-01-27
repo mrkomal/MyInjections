@@ -8,7 +8,7 @@ import kotlinx.coroutines.launch
 
 enum class SortType {
     //enum for declaring possible filtering options for injections data that will be displayed on the screen
-    DEFAULT, BY_NAME, BY_YEAR, BY_DOSE
+    DEFAULT, BY_NAME, BY_YEAR, BY_DOSE, ONLY_OBLIGATORY, ONLY_OPTIONAL
 }
 
 
@@ -29,6 +29,8 @@ class InjectionsViewModel(private val repository: InjectionsRepository) : ViewMo
                 SortType.BY_NAME -> injectionInfoSortedByName
                 SortType.BY_YEAR -> injectionInfoSortedByYear
                 SortType.BY_DOSE -> injectionInfoSortedByDose
+                SortType.ONLY_OBLIGATORY -> injectionInfoObligatory
+                SortType.ONLY_OPTIONAL -> injectionInfoOptional
             }
     }
     val resultInjectionInformation: LiveData<List<InjectionInfo>>
@@ -60,12 +62,32 @@ class InjectionsViewModel(private val repository: InjectionsRepository) : ViewMo
         }
     }
 
+    private val injectionInfoObligatory by lazy {
+        injectionsInfo.map { list ->
+            list.filter {
+                it.isObligatory
+            }
+        }
+    }
+
+    private val injectionInfoOptional by lazy {
+        injectionsInfo.map { list ->
+            list.filter {
+                !it.isObligatory
+            }
+        }
+    }
+
     // Functions for setting sort type (data order is changed after triggering them).
     fun sortInjectionsInfoByName() { chosenFilterType.value = SortType.BY_NAME }
 
     fun sortInjectionsInfoByYear() { chosenFilterType.value = SortType.BY_YEAR }
 
     fun sortInjectionInfoByDose() { chosenFilterType.value = SortType.BY_DOSE }
+
+    fun showObligatoryInjectionInfo() { chosenFilterType.value = SortType.ONLY_OBLIGATORY }
+
+    fun showOptionalInjectionInfo() { chosenFilterType.value = SortType.ONLY_OPTIONAL }
 
     // Other
     fun insertInjectionInfo(injectionInfo: InjectionInfo) = viewModelScope.launch {

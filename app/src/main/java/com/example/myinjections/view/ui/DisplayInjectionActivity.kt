@@ -62,6 +62,14 @@ class DisplayInjectionActivity : BaseActivity() {
                 injectionsViewModel.sortInjectionInfoByDose()
                 true
             }
+            R.id.show_only_obligatory_button -> {
+                injectionsViewModel.showObligatoryInjectionInfo()
+                true
+            }
+            R.id.show_only_optional_button -> {
+                injectionsViewModel.showOptionalInjectionInfo()
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }

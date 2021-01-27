@@ -25,4 +25,6 @@
     <string name="menu_sort_by_name">Sort by name</string>
     <string name="menu_sort_by_year">Sort by year</string>
     <string name="menu_sort_by_dose">Sort by dose</string>
+    <string name="menu_only_obligatory">Only obligatory</string>
+    <string name="menu_only_optional">Only optional</string>
 </resources>

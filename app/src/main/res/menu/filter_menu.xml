@@ -9,4 +9,10 @@
     <item
         android:id="@+id/sort_by_dose_button"
         android:title="@string/menu_sort_by_dose"></item>
+    <item
+        android:id="@+id/show_only_obligatory_button"
+        android:title="@string/menu_only_obligatory"></item>
+    <item
+        android:id="@+id/show_only_optional_button"
+        android:title="@string/menu_only_optional"></item>
 </menu>
