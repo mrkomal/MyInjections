@@ -11,8 +11,12 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import org.koin.dsl.koinApplication
+import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.core.context.startKoin
+import org.koin.core.context.stopKoin
+import org.koin.dsl.module
 import org.koin.test.KoinTest
+import org.koin.test.get
 
 class InjectionsViewModelTest : KoinTest {
     @get:Rule
@@ -22,21 +26,30 @@ class InjectionsViewModelTest : KoinTest {
     @get:Rule
     val mainCoroutineRule = MainCoroutineRule()
 
-    private lateinit var testRepository: InjectionsRepository
-    private lateinit var testViewModel: InjectionsViewModel
+    private val viewModelTestModule = module {
+        single<InjectionsRepository> { FakeInjectionsRepositoryImpl() }
+        viewModel { InjectionsViewModel(get()) }
+    }
+
+    private lateinit var testInjectionsViewModel: InjectionsViewModel
 
     @Before
     fun setup() {
-        testRepository = FakeInjectionsRepositoryImpl()
-        testViewModel = InjectionsViewModel(testRepository)
+        startKoin {
+            modules(viewModelTestModule)
+        }
+
+        testInjectionsViewModel = get()
     }
 
     @After
-    fun tearDown() { }
+    fun tearDown() {
+        stopKoin()
+    }
 
     @Test
-    fun getAllInjectionInfoWorksCorrectly_returns_true() {
-        val allInfo = testViewModel.resultInjectionInformation.getOrAwaitValueTest()
+    fun getAllInjectionInfoWorksCorrectly_returnsTrue() {
+        val allInfo = testInjectionsViewModel.resultInjectionInformation.getOrAwaitValueTest()
         assertEquals(3, allInfo.count())
     }
 }
