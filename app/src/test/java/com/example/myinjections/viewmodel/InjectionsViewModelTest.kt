@@ -5,6 +5,7 @@ import com.example.myinjections.MainCoroutineRule
 import com.example.myinjections.getOrAwaitValueTest
 import com.example.myinjections.repository.FakeInjectionsRepositoryImpl
 import com.example.myinjections.repository.InjectionsRepository
+import com.example.myinjections.room.model.InjectionInfo
 import junit.framework.Assert.assertEquals
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.After
@@ -51,5 +52,16 @@ class InjectionsViewModelTest : KoinTest {
     fun getAllInjectionInfoWorksCorrectly_returnsTrue() {
         val allInfo = testInjectionsViewModel.resultInjectionInformation.getOrAwaitValueTest()
         assertEquals(3, allInfo.count())
+    }
+
+    @Test
+    fun addNewInjectionInfoWorksCorrectly_returnsTrue() {
+        val newInjectionInfo = InjectionInfo(
+            0,"ddd",2018, 0.6, false, "xxx"
+        )
+        testInjectionsViewModel.insertInjectionInfo(newInjectionInfo)
+
+        val allInfo = testInjectionsViewModel.resultInjectionInformation.getOrAwaitValueTest()
+        assertEquals(4, allInfo.count())
     }
 }
