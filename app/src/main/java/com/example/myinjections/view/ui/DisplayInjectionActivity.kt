@@ -1,9 +1,11 @@
 package com.example.myinjections.view.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myinjections.R
@@ -38,6 +40,23 @@ class DisplayInjectionActivity : BaseActivity() {
             injectionsInfos.let { adapter.submitList(it) }
         })
 
+        //
+        val itemTouchHelperCallback = object: ItemTouchHelper.SimpleCallback(0,
+            ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ) = true
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                Log.d("AAA", "swipe")
+                val position = viewHolder.adapterPosition
+                val item = adapter.currentList[position]
+                Log.d("AAA", item.name)
+            }
+        }
+        ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView)
     }
 
 
@@ -73,5 +92,4 @@ class DisplayInjectionActivity : BaseActivity() {
             else -> super.onOptionsItemSelected(item)
         }
     }
-
 }
