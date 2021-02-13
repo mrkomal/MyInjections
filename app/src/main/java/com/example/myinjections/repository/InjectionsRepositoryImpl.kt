@@ -12,4 +12,8 @@ class InjectionsRepositoryImpl(private var injectionsDAO: InjectionsDao): Inject
         injectionsDAO.insert(injectionInfo)
     }
 
+    override suspend fun deleteInjectionInfo(injectionInfo: InjectionInfo) {
+        injectionsDAO.delete(injectionInfo)
+    }
+
 }

@@ -11,8 +11,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.myinjections.R
 import com.example.myinjections.view.adapters.InjectionsListAdapter
 import com.example.myinjections.viewmodel.BaseActivity
+import org.koin.android.ext.android.inject
 
 class DisplayInjectionActivity : BaseActivity() {
+
+    private val adapter: InjectionsListAdapter by inject()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_display_injection)
@@ -25,38 +29,11 @@ class DisplayInjectionActivity : BaseActivity() {
             finish()
         }
 
-        // RecyclerView
-        val recyclerView = findViewById<RecyclerView>(R.id.injections_recyclerview)
-
-        // List Adapter
-        val adapter = InjectionsListAdapter()
-
-        // Binding list adapter with RV
-        recyclerView.adapter = adapter
-        recyclerView.layoutManager = LinearLayoutManager(this)
+        // Setup RecyclerView
+        initializeRecyclerView()
 
         // Creating observer for InjectionsViewModel data
-        injectionsViewModel.resultInjectionInformation.observe(this, Observer { injectionsInfos ->
-            injectionsInfos.let { adapter.submitList(it) }
-        })
-
-        //
-        val itemTouchHelperCallback = object: ItemTouchHelper.SimpleCallback(0,
-            ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
-            override fun onMove(
-                recyclerView: RecyclerView,
-                viewHolder: RecyclerView.ViewHolder,
-                target: RecyclerView.ViewHolder
-            ) = true
-
-            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                Log.d("AAA", "swipe")
-                val position = viewHolder.adapterPosition
-                val item = adapter.currentList[position]
-                Log.d("AAA", item.name)
-            }
-        }
-        ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView)
+        subscribeToObservers()
     }
 
 
@@ -90,6 +67,39 @@ class DisplayInjectionActivity : BaseActivity() {
                 true
             }
             else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+
+    private fun subscribeToObservers() {
+        injectionsViewModel.resultInjectionInformation.observe(this, Observer { injectionsInfos ->
+            injectionsInfos.let { adapter.submitList(it) }
+        })
+    }
+
+
+    private fun initializeRecyclerView() {
+        val recyclerView = findViewById<RecyclerView>(R.id.injections_recyclerview)
+        recyclerView.adapter = adapter
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView)
+    }
+
+
+    private val itemTouchHelperCallback = object: ItemTouchHelper.SimpleCallback(0,
+        ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
+        override fun onMove(
+            recyclerView: RecyclerView,
+            viewHolder: RecyclerView.ViewHolder,
+            target: RecyclerView.ViewHolder
+        ) = true
+
+        override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+            Log.d("AAA", "swipe")
+            val position = viewHolder.adapterPosition
+            val chosenInjectionInfo = adapter.currentList[position]
+            Log.d("AAA", chosenInjectionInfo.toString())
+            injectionsViewModel.deleteInjectionInfo(chosenInjectionInfo)
         }
     }
 }

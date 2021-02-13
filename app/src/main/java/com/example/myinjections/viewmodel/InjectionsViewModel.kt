@@ -94,7 +94,9 @@ class InjectionsViewModel(private val repository: InjectionsRepository) : ViewMo
         repository.insertInjectionInfo(injectionInfo)
     }
 
-
+    fun deleteInjectionInfo(injectionInfo: InjectionInfo) = viewModelScope.launch {
+        repository.deleteInjectionInfo(injectionInfo)
+    }
 }
 
 //class InjectionsViewModelFactory(private val repository: InjectionsRepository): ViewModelProvider.Factory {

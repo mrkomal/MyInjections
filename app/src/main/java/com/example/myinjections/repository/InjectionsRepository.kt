@@ -9,4 +9,6 @@ interface InjectionsRepository {
 
     suspend fun insertInjectionInfo(injectionInfo: InjectionInfo)
 
+    suspend fun deleteInjectionInfo(injectionInfo: InjectionInfo)
+
 }
