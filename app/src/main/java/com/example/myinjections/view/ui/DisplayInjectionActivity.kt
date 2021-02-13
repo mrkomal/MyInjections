@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.myinjections.R
 import com.example.myinjections.view.adapters.InjectionsListAdapter
 import com.example.myinjections.viewmodel.BaseActivity
+import com.google.android.material.snackbar.Snackbar
 import org.koin.android.ext.android.inject
 
 class DisplayInjectionActivity : BaseActivity() {
@@ -95,11 +96,15 @@ class DisplayInjectionActivity : BaseActivity() {
         ) = true
 
         override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-            Log.d("AAA", "swipe")
             val position = viewHolder.adapterPosition
             val chosenInjectionInfo = adapter.currentList[position]
-            Log.d("AAA", chosenInjectionInfo.toString())
             injectionsViewModel.deleteInjectionInfo(chosenInjectionInfo)
+
+            Snackbar.make(
+                findViewById(R.id.display_injection_layout),
+                "${chosenInjectionInfo.name} injection was successfully deleted.",
+                Snackbar.LENGTH_LONG)
+                .show()
         }
     }
 }
