@@ -24,6 +24,7 @@ import org.koin.core.context.stopKoin
 import org.koin.dsl.module
 import org.koin.test.KoinTest
 import org.koin.test.get
+import org.koin.test.inject
 import java.io.IOException
 
 
@@ -39,14 +40,14 @@ class InjectionsDaoTest : KoinTest {
         single { get<InjectionsDatabase>().injectionsDao() }
     }
 
-    private val injectionTestDao: InjectionsDao = get()
-    private val injectionsTestDB: InjectionsDatabase = get()
+    private val injectionTestDao: InjectionsDao by inject()
+    private val injectionsTestDB: InjectionsDatabase by inject()
 
     @Before
     fun setUp() {
         stopKoin()
         startKoin {
-            roomTestModule
+            modules(roomTestModule)
         }
     }
 
