@@ -27,4 +27,8 @@ class FakeInjectionsRepositoryImpl : InjectionsRepository{
         _fakeInjectionsInfoList.add(injectionInfo)
     }
 
+    override suspend fun deleteInjectionInfo(injectionInfo: InjectionInfo) {
+        _fakeInjectionsInfoList.remove(injectionInfo)
+    }
+
 }

@@ -7,6 +7,7 @@ import com.example.myinjections.repository.FakeInjectionsRepositoryImpl
 import com.example.myinjections.repository.InjectionsRepository
 import com.example.myinjections.room.model.InjectionInfo
 import junit.framework.Assert.assertEquals
+import junit.framework.Assert.assertTrue
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.After
 import org.junit.Before
@@ -63,5 +64,19 @@ class InjectionsViewModelTest : KoinTest {
 
         val allInfo = testInjectionsViewModel.resultInjectionInformation.getOrAwaitValueTest()
         assertEquals(4, allInfo.count())
+    }
+
+    @Test
+    fun deleteInjectionInfoWorksCorrectly_returnsTrue() {
+        val newInjectionInfo = InjectionInfo(
+            0,"eee",2018, 0.6, false, "xxx"
+        )
+        testInjectionsViewModel.insertInjectionInfo(newInjectionInfo)
+        val infoAfterInsert = testInjectionsViewModel.resultInjectionInformation.getOrAwaitValueTest()
+        assertTrue("Data was not added.",infoAfterInsert.count() == 4)
+
+        testInjectionsViewModel.deleteInjectionInfo(newInjectionInfo)
+        val infoAfterDelete = testInjectionsViewModel.resultInjectionInformation.getOrAwaitValueTest()
+        assertTrue("Data was added, but not removed.", infoAfterDelete == infoAfterInsert-1)
     }
 }
