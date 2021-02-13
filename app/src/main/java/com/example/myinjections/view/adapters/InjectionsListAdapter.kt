@@ -35,7 +35,7 @@ class InjectionsListAdapter: ListAdapter<InjectionInfo,
         position: Int
     ) {
         val currentInfo = getItem(position)
-        holder.bind(currentInfo.id, currentInfo.name, currentInfo.date, currentInfo.dose,
+        holder.bind( (position + 1), currentInfo.name, currentInfo.date, currentInfo.dose,
             currentInfo.isObligatory, currentInfo.illnessInformation)
     }
 
