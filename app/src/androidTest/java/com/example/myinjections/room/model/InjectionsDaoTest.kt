@@ -1,6 +1,7 @@
 package com.example.myinjections.room.model
 
 import android.content.Context
+import android.util.Log
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
@@ -11,10 +12,13 @@ import junit.framework.Assert.assertTrue
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.runBlocking
 import org.junit.After
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertThat
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.koin.core.Koin
 import org.koin.core.context.startKoin
 import org.koin.core.context.stopKoin
 import org.koin.dsl.module
@@ -31,8 +35,7 @@ class InjectionsDaoTest : KoinTest {
 
     private val roomTestModule = module {
         single { ApplicationProvider.getApplicationContext<Context>() as Context}
-        single { Room.inMemoryDatabaseBuilder(get(), InjectionsDatabase::class.java)
-            .build() }
+        single { Room.inMemoryDatabaseBuilder(get(), InjectionsDatabase::class.java).build() }
         single { get<InjectionsDatabase>().injectionsDao() }
     }
 
@@ -60,7 +63,7 @@ class InjectionsDaoTest : KoinTest {
         val startSize = injectionTestDao.getAllInfo().firstOrNull()?.size ?: 0
 
         val id = 0
-        val name = "xyz"
+        val name = "xyz_add"
         val date = 2020
         val dose = 0.1
         val oblig = true
@@ -82,5 +85,31 @@ class InjectionsDaoTest : KoinTest {
                 it.illnessInformation == info }
         )
         assertTrue("Incorrect number of records.", (startSize+1) == endSize )
+    }
+
+
+    @Test
+    @Throws(Exception::class)
+    fun deleteInjectionInfoFromDatabase(): Unit = runBlocking {
+        val startSize = injectionTestDao.getAllInfo().firstOrNull()?.size ?: 0
+
+        val name = "xyz_delete"
+        val date = 2020
+        val dose = 0.1
+        val oblig = true
+        val info = "abc"
+        val testInjectionInfo = InjectionInfo(0, name, date, dose, oblig, info)
+        injectionTestDao.insert(testInjectionInfo)
+        val injectionsFromDatabase = injectionTestDao.getAllInfo().firstOrNull() ?: listOf()
+        val afterInsertSize = injectionsFromDatabase.size
+        assertTrue("Item was not added successfully.", afterInsertSize == startSize+1)
+
+        //get id of item that was added lately and set it as testInjectionInfo's id in database
+        val testInjectionInfoFromDb = testInjectionInfo.copy(
+            id = injectionTestDao.getAllInfo().firstOrNull()?.last()?.id ?: 0
+        )
+        injectionTestDao.delete(testInjectionInfoFromDb)
+        val afterDeleteSize = injectionTestDao.getAllInfo().firstOrNull()?.size ?: 0
+        assertTrue("Item was added but not deleted.", startSize == afterDeleteSize)
     }
 }
