@@ -79,4 +79,48 @@ class InjectionsViewModelTest : KoinTest {
         val infoAfterDelete = testInjectionsViewModel.resultInjectionInformation.getOrAwaitValueTest()
         assertTrue("Data was added, but not removed.", infoAfterDelete == infoAfterInsert-1)
     }
+
+    @Test
+    fun sortInjectionInfoByNameWorksCorrectly_returnsTrue() {
+        val desiredListOrder = testInjectionsViewModel.resultInjectionInformation.getOrAwaitValueTest().sortedBy {
+            it.name
+        }
+
+        testInjectionsViewModel.sortInjectionsInfoByName()
+        val afterSortFunctionListOrder = testInjectionsViewModel.resultInjectionInformation.getOrAwaitValueTest()
+        assertEquals(desiredListOrder, afterSortFunctionListOrder)
+    }
+
+    @Test
+    fun sortInjectionInfoByYearWorksCorrectly_returnsTrue() {
+        val desiredListOrder = testInjectionsViewModel.resultInjectionInformation.getOrAwaitValueTest().sortedBy {
+            it.date
+        }
+
+        testInjectionsViewModel.sortInjectionsInfoByYear()
+        val afterSortFunctionListOrder = testInjectionsViewModel.resultInjectionInformation.getOrAwaitValueTest()
+        assertEquals(desiredListOrder, afterSortFunctionListOrder)
+    }
+
+    @Test
+    fun sortInjectionInfoByDoseWorksCorrectly_returnsTrue() {
+        val desiredListOrder = testInjectionsViewModel.resultInjectionInformation.getOrAwaitValueTest().sortedBy {
+            it.dose
+        }
+
+        testInjectionsViewModel.sortInjectionInfoByDose()
+        val afterSortFunctionListOrder = testInjectionsViewModel.resultInjectionInformation.getOrAwaitValueTest()
+        assertEquals(desiredListOrder, afterSortFunctionListOrder)
+    }
+
+    @Test
+    fun showOnlyObligatoryInjectionsWorksCorrectly_returnsTrue() {
+        val desiredList = testInjectionsViewModel.resultInjectionInformation.getOrAwaitValueTest().filter {
+            it.isObligatory
+        }
+
+        testInjectionsViewModel.showObligatoryInjectionInfo()
+        val afterSortFunctionListOrder = testInjectionsViewModel.resultInjectionInformation.getOrAwaitValueTest()
+        assertEquals(desiredList, afterSortFunctionListOrder)
+    }
 }
