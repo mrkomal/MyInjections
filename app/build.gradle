@@ -108,4 +108,5 @@ dependencies {
     androidTestImplementation "org.koin:koin-test:$koin_version"
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
     androidTestImplementation "com.android.support.test.espresso:espresso-intents:$espressoVersion"
+    androidTestImplementation 'com.android.support.test.espresso:espresso-contrib:2.0'
 }
