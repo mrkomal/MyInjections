@@ -3,8 +3,7 @@ package com.example.myinjections.viewmodel
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.example.myinjections.MainCoroutineRule
 import com.example.myinjections.getOrAwaitValueTest
-import com.example.myinjections.repository.FakeInjectionsRepositoryImpl
-import com.example.myinjections.repository.InjectionsRepository
+import com.example.myinjections.modules.viewModelTestModule
 import com.example.myinjections.room.model.InjectionInfo
 import junit.framework.Assert.assertEquals
 import junit.framework.Assert.assertTrue
@@ -13,10 +12,8 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.startKoin
 import org.koin.core.context.stopKoin
-import org.koin.dsl.module
 import org.koin.test.KoinTest
 import org.koin.test.get
 
@@ -27,11 +24,6 @@ class InjectionsViewModelTest : KoinTest {
     @ExperimentalCoroutinesApi
     @get:Rule
     val mainCoroutineRule = MainCoroutineRule()
-
-    private val viewModelTestModule = module {
-        single<InjectionsRepository> { FakeInjectionsRepositoryImpl() }
-        viewModel { InjectionsViewModel(get()) }
-    }
 
     private lateinit var testInjectionsViewModel: InjectionsViewModel
 
