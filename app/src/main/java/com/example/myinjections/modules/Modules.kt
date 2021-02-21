@@ -6,14 +6,12 @@ import com.example.myinjections.repository.InjectionsRepository
 import com.example.myinjections.repository.InjectionsRepositoryImpl
 import com.example.myinjections.room.database.InjectionsDatabase
 import com.example.myinjections.room.model.InjectionsDao
-import com.example.myinjections.view.adapters.InjectionsListAdapter
 import com.example.myinjections.viewmodel.InjectionsViewModel
 import org.koin.android.ext.koin.androidApplication
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val databaseModule = module {
-
     fun provideDatabase(application: Application): InjectionsDatabase {
         return Room.databaseBuilder(application, InjectionsDatabase::class.java, "injections_database")
             .fallbackToDestructiveMigration()
@@ -30,7 +28,6 @@ val databaseModule = module {
 
 
 val repositoryModule = module {
-
     fun provideInjectionsRepository(dao : InjectionsDao): InjectionsRepository {
         return InjectionsRepositoryImpl(dao)
     }
@@ -42,9 +39,4 @@ val repositoryModule = module {
 val viewModelModule = module {
     // Specific viewModel pattern to tell Koin how to build InjectionsViewModel
     viewModel { InjectionsViewModel(repository = get()) }
-}
-
-
-val recyclerViewAdapterModule = module {
-    single { InjectionsListAdapter() }
 }
