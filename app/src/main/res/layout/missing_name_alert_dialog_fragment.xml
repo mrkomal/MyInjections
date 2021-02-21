@@ -9,25 +9,25 @@
     android:layout_gravity="center_horizontal">
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/dialog_imageView"
         android:layout_width="94dp"
         android:layout_height="83dp"
         android:src="@drawable/sharp_error_black_36dp"
-        app:layout_constraintEnd_toStartOf="@+id/textView2"
-        app:layout_constraintTop_toTopOf="@+id/textView2"></ImageView>
+        app:layout_constraintEnd_toStartOf="@+id/dialog_Error_textView"
+        app:layout_constraintTop_toTopOf="@+id/dialog_Error_textView"></ImageView>
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/dialog_Error_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Error"
         android:textSize="38sp"
         android:textStyle="bold|italic"
-        app:layout_constraintBottom_toTopOf="@+id/textView"
-        app:layout_constraintStart_toStartOf="@+id/textView"></TextView>
+        app:layout_constraintBottom_toTopOf="@+id/dialog_info_textView"
+        app:layout_constraintStart_toStartOf="@+id/dialog_info_textView"></TextView>
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/dialog_info_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingTop="8dp"
