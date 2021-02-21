@@ -1,22 +1,23 @@
 package com.example.myinjections.view.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myinjections.R
 import com.example.myinjections.view.adapters.InjectionsListAdapter
-import com.example.myinjections.viewmodel.BaseActivity
+import com.example.myinjections.viewmodel.InjectionsViewModel
 import com.google.android.material.snackbar.Snackbar
-import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.getViewModel
 
-class DisplayInjectionActivity : BaseActivity() {
+class DisplayInjectionActivity : AppCompatActivity() {
 
-    private val adapter: InjectionsListAdapter by inject()
+    private val adapter = InjectionsListAdapter()
+    lateinit var injectionsViewModel: InjectionsViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,6 +30,9 @@ class DisplayInjectionActivity : BaseActivity() {
         toolbar.setNavigationOnClickListener {
             finish()
         }
+
+        // ViewModel
+        injectionsViewModel = getViewModel()
 
         // Setup RecyclerView
         initializeRecyclerView()
@@ -102,7 +106,7 @@ class DisplayInjectionActivity : BaseActivity() {
 
             Snackbar.make(
                 findViewById(R.id.display_injection_layout),
-                "${chosenInjectionInfo.name} injection was successfully deleted.",
+                "${chosenInjectionInfo.name} ${getString(R.string.snackbar_info)}",
                 Snackbar.LENGTH_LONG)
                 .show()
         }

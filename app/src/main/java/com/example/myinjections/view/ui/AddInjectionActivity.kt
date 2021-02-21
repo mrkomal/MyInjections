@@ -1,27 +1,28 @@
 package com.example.myinjections.view.ui
 
 import android.annotation.SuppressLint
-import android.app.ActionBar
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
 import android.widget.RadioButton
-import android.widget.Toolbar
-import com.example.myinjections.viewmodel.BaseActivity
+import androidx.appcompat.app.AppCompatActivity
 import com.example.myinjections.R
 import com.example.myinjections.room.model.InjectionInfo
 import com.example.myinjections.view.dialogs.MissingNameDialogFragment
+import com.example.myinjections.viewmodel.InjectionsViewModel
 import kotlinx.android.synthetic.main.activity_add_injection.*
+import org.koin.androidx.viewmodel.ext.android.getViewModel
 import java.util.*
 
-class AddInjectionActivity : BaseActivity() {
+class AddInjectionActivity : AppCompatActivity() {
 
     companion object{
         //UI items tags
         const val INSERT_BUTTON_TAG = "insert_button_pressed"
     }
 
+    private lateinit var injectionsViewModel: InjectionsViewModel
 
     private val listener: View.OnClickListener = View.OnClickListener { view ->
         when (view.id) {
@@ -74,6 +75,9 @@ class AddInjectionActivity : BaseActivity() {
         toolbar.setNavigationOnClickListener {
             finish()
         }
+
+        //ViewModel
+        injectionsViewModel = getViewModel()
 
         //UI items settings
         setYearPickerValues()
