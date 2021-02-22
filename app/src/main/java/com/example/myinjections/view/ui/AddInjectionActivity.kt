@@ -89,7 +89,7 @@ class AddInjectionActivity : AppCompatActivity() {
                     //display success information
                     Snackbar.make(
                         findViewById(R.id.add_injection_layout),
-                        "New injection has been added.",
+                        getString(R.string.snackbarText),
                         Snackbar.LENGTH_INDEFINITE)
                         .setDuration(snackbarDuration)
                         .show()

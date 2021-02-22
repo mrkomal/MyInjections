@@ -19,6 +19,7 @@
     <string name="radioButtonPos">Yes</string>
     <string name="radioButtonNeg">No</string>
     <string name="insertButton">Insert</string>
+    <string name="snackbarText">New injection has been added.</string>
 
     //display injections activity
     <string name="toolbar_title_display_injections">MY INJECTIONS "</string>
