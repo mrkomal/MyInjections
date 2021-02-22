@@ -11,19 +11,50 @@ import com.example.myinjections.R
 import com.example.myinjections.room.model.InjectionInfo
 import com.example.myinjections.view.dialogs.MissingNameDialogFragment
 import com.example.myinjections.viewmodel.InjectionsViewModel
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_add_injection.*
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 import java.util.*
+import kotlin.concurrent.schedule
 
 class AddInjectionActivity : AppCompatActivity() {
 
     companion object{
-        //UI items tags
+        // UI items tags
         const val INSERT_BUTTON_TAG = "insert_button_pressed"
+
+        // SnackBar times
+        const val snackbarDuration = 1000
+        const val totalTimeToWait = snackbarDuration + 300
     }
 
     private lateinit var injectionsViewModel: InjectionsViewModel
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_add_injection)
+
+        //Setting toolbar
+        val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.add_injection_toolbar)
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+        toolbar.setNavigationOnClickListener {
+            finish()
+        }
+
+        //ViewModel
+        injectionsViewModel = getViewModel()
+
+        //UI items settings
+        setYearPickerValues()
+        setDoseSliderLabel()
+
+        //insert button pressed
+        insert_button.setOnClickListener(listener)
+    }
+
+
+    @SuppressLint("WrongConstant")
     private val listener: View.OnClickListener = View.OnClickListener { view ->
         when (view.id) {
             R.id.insert_button -> {
@@ -55,36 +86,22 @@ class AddInjectionActivity : AppCompatActivity() {
                             isInjectionObligatory, illnessInformation)
                     )
 
-                    //finish activity
-                    finish()
-                    Log.d(INSERT_BUTTON_TAG, "Data passed to another activity.")
+                    //display success information
+                    Snackbar.make(
+                        findViewById(R.id.add_injection_layout),
+                        "New injection has been added.",
+                        Snackbar.LENGTH_INDEFINITE)
+                        .setDuration(snackbarDuration)
+                        .show()
+
+                    //wait until Snackbar disappears and then finish activity
+                    Timer().schedule(totalTimeToWait.toLong()){
+                        finish()
+                        Log.d(INSERT_BUTTON_TAG, "Data passed to another activity.")
+                    }
                 }
             }
         }
-    }
-
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_add_injection)
-
-        //Setting toolbar
-        val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.add_injection_toolbar)
-        setSupportActionBar(toolbar)
-        supportActionBar?.setDisplayShowTitleEnabled(false)
-        toolbar.setNavigationOnClickListener {
-            finish()
-        }
-
-        //ViewModel
-        injectionsViewModel = getViewModel()
-
-        //UI items settings
-        setYearPickerValues()
-        setDoseSliderLabel()
-
-        //insert button pressed
-        insert_button.setOnClickListener(listener)
     }
 
 
