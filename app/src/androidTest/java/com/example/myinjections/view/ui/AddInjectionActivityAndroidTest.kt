@@ -1,9 +1,11 @@
 package com.example.myinjections.view.ui
 
+import android.content.Context
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.asLiveData
 import androidx.test.core.app.ActivityScenario
+import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.closeSoftKeyboard
 import com.example.myinjections.repository.InjectionsRepository
 import org.junit.After
@@ -22,6 +24,7 @@ import com.example.myinjections.R
 import com.example.myinjections.getOrAwaitValue
 import com.example.myinjections.modules.viewModelTestModule
 import junit.framework.Assert.assertTrue
+import org.hamcrest.Matchers
 
 class AddInjectionActivityAndroidTest : KoinTest {
 
@@ -116,5 +119,17 @@ class AddInjectionActivityAndroidTest : KoinTest {
         onView(withId(R.id.insert_button)).perform(scrollTo(), click())
         onView(withText("OK")).perform(click())
         onView(withId(R.id.insert_button)).check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun onSucceedSnackbarIsDisplayed_returnsTrue() {
+        onView(withId(R.id.name_textView)).perform(typeText("Name"))
+        onView(withId(R.id.illness_textView)).perform(typeText("Some illness"))
+        closeSoftKeyboard()
+        onView(withId(R.id.insert_button)).perform(scrollTo(), click())
+        scenarioHasBeenAlreadyClosed = true
+
+        onView(withText(R.string.snackbarText))
+            .check(matches(withEffectiveVisibility(Visibility.VISIBLE)))
     }
 }
