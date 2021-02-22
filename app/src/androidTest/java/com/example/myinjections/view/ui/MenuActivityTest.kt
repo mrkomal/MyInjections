@@ -28,8 +28,9 @@ class MenuActivityTest: KoinTest {
 
     @Before
     fun setUp() {
-        Intents.init()
         stopKoin()
+
+        Intents.init()
         startKoin{
             modules(
                 viewModelTestModule
