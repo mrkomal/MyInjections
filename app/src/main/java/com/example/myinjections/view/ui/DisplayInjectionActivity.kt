@@ -54,7 +54,7 @@ class DisplayInjectionActivity : AppCompatActivity() {
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                Log.d("LogQueryText", newText ?: "null")
+                injectionsViewModel.filterInjectionInfo(newText ?: "")
                 return true
             }
         })

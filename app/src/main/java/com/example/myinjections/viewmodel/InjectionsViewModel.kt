@@ -8,7 +8,8 @@ import kotlinx.coroutines.launch
 
 enum class SortType {
     //enum for declaring possible filtering options for injections data that will be displayed on the screen
-    DEFAULT, BY_NAME, BY_YEAR, BY_DOSE, ONLY_OBLIGATORY, ONLY_OPTIONAL
+    DEFAULT, BY_NAME, BY_YEAR, BY_DOSE, ONLY_OBLIGATORY, ONLY_OPTIONAL,
+    FILTER_BY_NAME
 }
 
 
@@ -31,6 +32,7 @@ class InjectionsViewModel(private val repository: InjectionsRepository) : ViewMo
                 SortType.BY_DOSE -> injectionInfoSortedByDose
                 SortType.ONLY_OBLIGATORY -> injectionInfoObligatory
                 SortType.ONLY_OPTIONAL -> injectionInfoOptional
+                SortType.FILTER_BY_NAME -> filteredInjectionInfo
             }
     }
     val resultInjectionInformation: LiveData<List<InjectionInfo>>
@@ -88,6 +90,19 @@ class InjectionsViewModel(private val repository: InjectionsRepository) : ViewMo
     fun showObligatoryInjectionInfo() { chosenFilterType.value = SortType.ONLY_OBLIGATORY }
 
     fun showOptionalInjectionInfo() { chosenFilterType.value = SortType.ONLY_OPTIONAL }
+
+    // Filtering by name or illness information for SearchView
+    private var filteredInjectionInfo = injectionsInfo
+
+    fun filterInjectionInfo(containedString: String) {
+        filteredInjectionInfo = injectionsInfo.map { list ->
+            list.filter {
+                it.name.contains(containedString) or it.illnessInformation.contains(containedString)
+            }
+        }
+
+        chosenFilterType.value = SortType.FILTER_BY_NAME
+    }
 
     // Other
     fun insertInjectionInfo(injectionInfo: InjectionInfo) = viewModelScope.launch {
