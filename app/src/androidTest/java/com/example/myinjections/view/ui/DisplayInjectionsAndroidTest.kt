@@ -66,7 +66,7 @@ class DisplayInjectionsAndroidTest : KoinTest {
         // swipe first item to left
         onView(withId(R.id.injections_recyclerview)).perform(
             RecyclerViewActions.actionOnItemAtPosition<InjectionsListAdapter.InjectionsListViewHolder>(
-                0,
+                1,
                 swipeLeft()
             )
         )
@@ -84,7 +84,7 @@ class DisplayInjectionsAndroidTest : KoinTest {
         // swipe first item to left
         onView(withId(R.id.injections_recyclerview)).perform(
             RecyclerViewActions.actionOnItemAtPosition<InjectionsListAdapter.InjectionsListViewHolder>(
-                0,
+                1,
                 swipeLeft()
             )
         )
