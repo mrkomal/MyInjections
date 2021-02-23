@@ -16,6 +16,9 @@
 
         //activity animations
         <item name="android:windowAnimationStyle">@style/CustomActivityAnimation</item>
+
+        //SearchView style
+        <item name="searchViewStyle">@style/SearchViewStyle</item>
     </style>
 
     <style name="CustomActivityAnimation" parent="@android:style/Animation.Activity">
@@ -83,4 +86,11 @@
         <item name="android:layout_marginTop">16dp</item>
     </style>
 
+    <style name="SearchViewStyle" parent="Widget.AppCompat.SearchView">
+        <!--search view customization-->
+        <item name="searchHintIcon">@null</item>
+        <item name="closeIcon">@drawable/ic_baseline_close_24</item>
+        <item name="queryHint">@string/searchview_query_text</item>
+        <item name="queryBackground">@drawable/searchview_query_background</item>
+    </style>
 </resources>

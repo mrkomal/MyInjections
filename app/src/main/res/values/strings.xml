@@ -29,4 +29,5 @@
     <string name="menu_only_obligatory">Only obligatory</string>
     <string name="menu_only_optional">Only optional</string>
     <string name="snackbar_info">injection was successfully deleted.</string>
+    <string name="searchview_query_text">Search…</string>
 </resources>
