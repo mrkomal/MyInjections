@@ -115,4 +115,19 @@ class InjectionsViewModelTest : KoinTest {
         val afterSortFunctionListOrder = testInjectionsViewModel.resultInjectionInformation.getOrAwaitValueTest()
         assertEquals(desiredList, afterSortFunctionListOrder)
     }
+
+    @Test
+    fun filterInjectionInfoByGivenSubStringWorksCorrectly_returnsTrue(){
+        val subString = "a"
+        val desiredInfoSize = testInjectionsViewModel.resultInjectionInformation
+            .getOrAwaitValueTest()
+            .filter { it.name.contains(subString) or it.illnessInformation.contains(subString)}
+            .size
+
+        testInjectionsViewModel.filterInjectionInfo(subString)
+        val infoAfterFiltering = testInjectionsViewModel.resultInjectionInformation
+            .getOrAwaitValueTest()
+            .size
+        assertTrue(desiredInfoSize == infoAfterFiltering)
+    }
 }
