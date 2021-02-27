@@ -38,7 +38,7 @@ class UsefulLinksServiceTest : KoinTest {
     }
 
     @Test
-    fun test(): Unit = runBlocking {
+    fun apiGetLinksFunctionWorksCorrectly_returnsTrue(): Unit = runBlocking {
         val valsFromApi = service.getLinks()
         assertTrue("Api returns nothing or does not contain searched element.",
             valsFromApi.contains(usefulLink)

@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.flow
 
 class UsefulLinksRepositoryImpl(private val usefulLinksService: UsefulLinksService) : UsefulLinksRepository {
 
-    override suspend fun getAllLinks(): Flow<List<UsefulLink>> = flow {
+    override fun getAllLinks(): Flow<List<UsefulLink>> = flow {
         emit(usefulLinksService.getLinks())
     }
 }
