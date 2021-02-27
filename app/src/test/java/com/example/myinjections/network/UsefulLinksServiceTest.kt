@@ -18,7 +18,8 @@ class UsefulLinksServiceTest : KoinTest {
     private val service: UsefulLinksService by inject()
     
     // Example JSON that is inside database.
-    private val usefulLink: UsefulLink = UsefulLink(id=1, title="Post 1")
+    private val usefulLink = UsefulLink(id=1, subject= "Worth to know", title = "What is vaccination?",
+        link = "https://en.wikipedia.org/wiki/Vaccination")
 
     @Before
     fun setUp() {

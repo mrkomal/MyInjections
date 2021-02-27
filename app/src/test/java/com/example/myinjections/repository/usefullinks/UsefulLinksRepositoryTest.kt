@@ -26,7 +26,7 @@ class UsefulLinksRepositoryTest : KoinTest {
 
     //Utilities
     private val mockUsefulLink: UsefulLink by lazy {
-        UsefulLink(1,"LinkFromService")
+        UsefulLink(1,"TitleFromApi", "SubjectFromApi","LinkFromService")
     }
 
     @Before

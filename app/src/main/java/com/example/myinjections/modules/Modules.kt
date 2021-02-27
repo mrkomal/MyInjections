@@ -2,7 +2,6 @@ package com.example.myinjections.modules
 
 import android.app.Application
 import androidx.room.Room
-import com.example.myinjections.network.model.UsefulLink
 import com.example.myinjections.network.service.UsefulLinksService
 import com.example.myinjections.repository.injections.InjectionsRepository
 import com.example.myinjections.repository.injections.InjectionsRepositoryImpl
