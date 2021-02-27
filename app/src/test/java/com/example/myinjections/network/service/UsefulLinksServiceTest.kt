@@ -1,8 +1,7 @@
-package com.example.myinjections.network
+package com.example.myinjections.network.service
 
 import com.example.myinjections.modules.networkModule
 import com.example.myinjections.network.model.UsefulLink
-import com.example.myinjections.network.service.UsefulLinksService
 import junit.framework.Assert.assertTrue
 import kotlinx.coroutines.runBlocking
 import org.junit.After
