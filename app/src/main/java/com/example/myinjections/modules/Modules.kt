@@ -3,8 +3,11 @@ package com.example.myinjections.modules
 import android.app.Application
 import androidx.room.Room
 import com.example.myinjections.network.model.UsefulLink
+import com.example.myinjections.network.service.UsefulLinksService
 import com.example.myinjections.repository.injections.InjectionsRepository
 import com.example.myinjections.repository.injections.InjectionsRepositoryImpl
+import com.example.myinjections.repository.usefullinks.UsefulLinksRepository
+import com.example.myinjections.repository.usefullinks.UsefulLinksRepositoryImpl
 import com.example.myinjections.room.database.InjectionsDatabase
 import com.example.myinjections.room.model.InjectionsDao
 import com.example.myinjections.viewmodel.InjectionsViewModel
@@ -32,12 +35,15 @@ val databaseModule = module {
 
 val repositoryModule = module {
     fun provideInjectionsRepository(dao : InjectionsDao): InjectionsRepository {
-        return InjectionsRepositoryImpl(
-            dao
-        )
+        return InjectionsRepositoryImpl(dao)
     }
 
-    single { provideInjectionsRepository(get()) }
+    fun provideUsefulLinksRepository(service: UsefulLinksService): UsefulLinksRepository {
+        return UsefulLinksRepositoryImpl(service)
+    }
+
+    single { provideInjectionsRepository(dao = get()) }
+    single { provideUsefulLinksRepository(service = get())}
 }
 
 
@@ -48,15 +54,15 @@ val viewModelModule = module {
 
 
 val networkModule = module {
-   val retrofit =  Retrofit.Builder()
-            .baseUrl("https://my-json-server.typicode.com/mrkomal/JSON_MyInjections_App")
+    fun provideRetrofit() =  Retrofit.Builder()
+            .baseUrl("https://my-json-server.typicode.com/mrkomal/JSON_MyInjections_App/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
-    fun provideUsefulLinkApi(retrofit: Retrofit): UsefulLink {
-        return retrofit.create(UsefulLink::class.java)
+    fun provideUsefulLinkApi(retrofit: Retrofit): UsefulLinksService {
+        return retrofit.create(UsefulLinksService::class.java)
     }
 
-    single { retrofit }
+    single { provideRetrofit() }
     single { provideUsefulLinkApi(retrofit = get()) }
 }
