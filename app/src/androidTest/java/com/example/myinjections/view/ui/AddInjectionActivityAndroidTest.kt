@@ -1,13 +1,11 @@
 package com.example.myinjections.view.ui
 
-import android.content.Context
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.asLiveData
 import androidx.test.core.app.ActivityScenario
-import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.closeSoftKeyboard
-import com.example.myinjections.repository.InjectionsRepository
+import com.example.myinjections.repository.injections.InjectionsRepository
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
@@ -24,7 +22,6 @@ import com.example.myinjections.R
 import com.example.myinjections.getOrAwaitValue
 import com.example.myinjections.modules.viewModelTestModule
 import junit.framework.Assert.assertTrue
-import org.hamcrest.Matchers
 
 class AddInjectionActivityAndroidTest : KoinTest {
 

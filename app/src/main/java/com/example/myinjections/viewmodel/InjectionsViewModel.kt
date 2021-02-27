@@ -1,7 +1,7 @@
 package com.example.myinjections.viewmodel
 
 import androidx.lifecycle.*
-import com.example.myinjections.repository.InjectionsRepository
+import com.example.myinjections.repository.injections.InjectionsRepository
 import com.example.myinjections.room.model.InjectionInfo
 import kotlinx.coroutines.launch
 

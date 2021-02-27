@@ -3,8 +3,8 @@ package com.example.myinjections.modules
 import android.app.Application
 import androidx.room.Room
 import com.example.myinjections.network.model.UsefulLink
-import com.example.myinjections.repository.InjectionsRepository
-import com.example.myinjections.repository.InjectionsRepositoryImpl
+import com.example.myinjections.repository.injections.InjectionsRepository
+import com.example.myinjections.repository.injections.InjectionsRepositoryImpl
 import com.example.myinjections.room.database.InjectionsDatabase
 import com.example.myinjections.room.model.InjectionsDao
 import com.example.myinjections.viewmodel.InjectionsViewModel
@@ -32,7 +32,9 @@ val databaseModule = module {
 
 val repositoryModule = module {
     fun provideInjectionsRepository(dao : InjectionsDao): InjectionsRepository {
-        return InjectionsRepositoryImpl(dao)
+        return InjectionsRepositoryImpl(
+            dao
+        )
     }
 
     single { provideInjectionsRepository(get()) }

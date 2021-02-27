@@ -1,10 +1,11 @@
-package com.example.myinjections.repository
+package com.example.myinjections.repository.injections
 
 import com.example.myinjections.room.model.InjectionInfo
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
-class FakeInjectionsRepositoryImpl : InjectionsRepository{
+class FakeInjectionsRepositoryImpl :
+    InjectionsRepository {
 
     private var _fakeInjectionsInfoList = mutableListOf(
         InjectionInfo(0,"aaa",2020, 0.1, true, "xxx"),

@@ -1,4 +1,4 @@
-package com.example.myinjections.repository
+package com.example.myinjections.repository.injections
 
 import com.example.myinjections.room.model.InjectionInfo
 import kotlinx.coroutines.flow.Flow

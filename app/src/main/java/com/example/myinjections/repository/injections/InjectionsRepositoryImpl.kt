@@ -1,10 +1,12 @@
-package com.example.myinjections.repository
+package com.example.myinjections.repository.injections
 
+import com.example.myinjections.repository.injections.InjectionsRepository
 import com.example.myinjections.room.model.InjectionInfo
 import com.example.myinjections.room.model.InjectionsDao
 import kotlinx.coroutines.flow.Flow
 
-class InjectionsRepositoryImpl(private var injectionsDAO: InjectionsDao): InjectionsRepository {
+class InjectionsRepositoryImpl(private var injectionsDAO: InjectionsDao):
+    InjectionsRepository {
 
     override fun getAllInjectionInfo() : Flow<List<InjectionInfo>> = injectionsDAO.getAllInfo()
 
