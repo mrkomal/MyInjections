@@ -2,6 +2,7 @@ package com.example.myinjections
 
 import android.app.Application
 import com.example.myinjections.modules.databaseModule
+import com.example.myinjections.modules.networkModule
 import com.example.myinjections.modules.repositoryModule
 import com.example.myinjections.modules.viewModelModule
 import org.koin.android.ext.koin.androidContext
@@ -18,6 +19,7 @@ class InjectionsApplication : Application() {
             androidContext(this@InjectionsApplication)
             modules(
                 databaseModule,
+                networkModule,
                 repositoryModule,
                 viewModelModule
             )
