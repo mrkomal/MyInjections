@@ -55,4 +55,10 @@ class MenuActivityTest: KoinTest {
         onView(withId(R.id.display_injections_button)).perform(click())
         intended(hasComponent(DisplayInjectionActivity::class.java.name))
     }
+
+    @Test
+    fun clickButton_launchesDisplayLinksActivity_returnsTrue() {
+        onView(withId(R.id.display_links_button)).perform(click())
+        intended(hasComponent(DisplayLinksActivity::class.java.name))
+    }
 }
