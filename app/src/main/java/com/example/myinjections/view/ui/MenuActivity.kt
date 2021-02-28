@@ -16,10 +16,16 @@ class MenuActivity : AppCompatActivity(), View.OnClickListener {
         // Click listeners for menu buttons
         display_injections_button.setOnClickListener(this)
         add_injection_button.setOnClickListener(this)
+        display_links_button.setOnClickListener(this)
     }
 
     override fun onClick(v: View) {
         when(v.id) {
+            R.id.display_links_button -> {
+                Intent(this, DisplayLinksActivity::class.java).also {
+                    startActivity(it)
+                }
+            }
 
             R.id.display_injections_button -> {
                 Intent(this, DisplayInjectionActivity::class.java).also {
