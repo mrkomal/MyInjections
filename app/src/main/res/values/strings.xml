@@ -31,4 +31,7 @@
     <string name="menu_only_optional">Only optional</string>
     <string name="snackbar_info">injection was successfully deleted.</string>
     <string name="searchview_query_text">Search…</string>
+
+    //display links activity
+    <string name="toolbar_title_display_links">USEFUL INFORMATION "</string>
 </resources>
