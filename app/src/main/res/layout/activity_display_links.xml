@@ -6,4 +6,23 @@
     android:layout_height="match_parent"
     tools:context=".view.ui.DisplayLinksActivity">
 
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/display_links_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        style="@style/Widget.MaterialComponents.Toolbar.Primary"
+        app:navigationIcon="@drawable/sharp_arrow_back_white_24dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/toolbar_title_display_links"
+            android:textColor="@color/colorWhite"
+            android:textSize="24dp"
+            android:textStyle="italic"
+            android:layout_gravity="center">
+        </TextView>
+    </com.google.android.material.appbar.MaterialToolbar>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
