@@ -10,6 +10,7 @@ import com.example.myinjections.repository.usefullinks.UsefulLinksRepositoryImpl
 import com.example.myinjections.room.database.InjectionsDatabase
 import com.example.myinjections.room.model.InjectionsDao
 import com.example.myinjections.viewmodel.InjectionsViewModel
+import com.example.myinjections.viewmodel.UsefulLinksViewModel
 import org.koin.android.ext.koin.androidApplication
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -47,8 +48,9 @@ val repositoryModule = module {
 
 
 val viewModelModule = module {
-    // Specific viewModel pattern to tell Koin how to build InjectionsViewModel
+    // Specific viewModel pattern to tell Koin how to build ViewModel
     viewModel { InjectionsViewModel(repository = get()) }
+    viewModel { UsefulLinksViewModel(repository = get()) }
 }
 
 
