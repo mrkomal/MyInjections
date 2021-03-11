@@ -26,14 +26,16 @@ class UsefulLinksViewPagerAdapter: ListAdapter<UsefulLink,
 
     override fun onBindViewHolder(holder: UsefulLinksViewHolder, position: Int) {
         val currentPage = getItem(position)
-        holder.bind(currentPage.title)
+        holder.bind(currentPage.title, currentPage.subject)
     }
 
     class UsefulLinksViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         val titleTextView: TextView = itemView.page_title_textview
+        val subjectTextView: TextView = itemView.subject_textview
 
-        fun bind(title: String) {
+        fun bind(title: String, subject: String) {
             titleTextView.text = title.plus(" ")
+            subjectTextView.text = subject.plus(" ")
         }
     }
 
