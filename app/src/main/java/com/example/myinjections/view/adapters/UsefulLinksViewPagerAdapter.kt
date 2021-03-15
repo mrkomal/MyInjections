@@ -1,14 +1,17 @@
 package com.example.myinjections.view.adapters
 
+import android.content.ContentProvider
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myinjections.R
 import com.example.myinjections.network.model.UsefulLink
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.usefullinks_viewpager_item.view.*
 
 class UsefulLinksViewPagerAdapter: ListAdapter<UsefulLink,
@@ -26,16 +29,22 @@ class UsefulLinksViewPagerAdapter: ListAdapter<UsefulLink,
 
     override fun onBindViewHolder(holder: UsefulLinksViewHolder, position: Int) {
         val currentPage = getItem(position)
-        holder.bind(currentPage.title, currentPage.subject)
+        holder.bind(currentPage.title, currentPage.subject, currentPage.image_url)
     }
 
     class UsefulLinksViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         val titleTextView: TextView = itemView.page_title_textview
         val subjectTextView: TextView = itemView.subject_textview
+        val imageView: ImageView = itemView.post_image
 
-        fun bind(title: String, subject: String) {
+        fun bind(title: String, subject: String, imageUrl: String) {
             titleTextView.text = title.plus(" ")
             subjectTextView.text = subject.plus(" ")
+            Picasso.get()
+                .load(imageUrl)
+                .error(R.drawable.sharp_error_black_36dp)
+                .fit()
+                .into(imageView)
         }
     }
 
