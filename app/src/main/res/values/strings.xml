@@ -34,4 +34,5 @@
 
     //display links activity
     <string name="toolbar_title_display_links">USEFUL INFORMATION "</string>
+    <string name="progress_bar_info">Loading…</string>
 </resources>
