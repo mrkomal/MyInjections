@@ -5,5 +5,6 @@ data class UsefulLink(
     val link: String,
     val subject: String,
     val title: String,
-    val image_url: String
+    val image_url: String,
+    val sample_text: String
 )

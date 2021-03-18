@@ -19,6 +19,7 @@ import com.example.myinjections.R
 import com.example.myinjections.network.model.UsefulLink
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.usefullinks_viewpager_item.view.*
+import org.w3c.dom.Text
 
 class UsefulLinksViewPagerAdapter: ListAdapter<UsefulLink,
         UsefulLinksViewPagerAdapter.UsefulLinksViewHolder>(UsefulLinksComparator()) {
@@ -35,7 +36,7 @@ class UsefulLinksViewPagerAdapter: ListAdapter<UsefulLink,
 
     override fun onBindViewHolder(holder: UsefulLinksViewHolder, position: Int) {
         val currentPage = getItem(position)
-        holder.bind(currentPage.title, currentPage.subject, currentPage.image_url)
+        holder.bind(currentPage.title, currentPage.subject, currentPage.image_url, currentPage.sample_text)
 
         // open website when item is clicked
         holder.itemView.setOnClickListener {
@@ -51,8 +52,9 @@ class UsefulLinksViewPagerAdapter: ListAdapter<UsefulLink,
         private val titleTextView: TextView = itemView.page_title_textview
         private val subjectTextView: TextView = itemView.subject_textview
         private val imageView: ImageView = itemView.post_image
+        private val sampleTextTextView: TextView = itemView.sample_text
 
-        fun bind(title: String, subject: String, imageUrl: String) {
+        fun bind(title: String, subject: String, imageUrl: String, sampleText: String) {
             titleTextView.text = title.plus(" ")
             subjectTextView.text = subject.plus(" ")
             Picasso.get()
@@ -60,6 +62,7 @@ class UsefulLinksViewPagerAdapter: ListAdapter<UsefulLink,
                 .error(R.drawable.sharp_error_black_36dp)
                 .fit()
                 .into(imageView)
+            sampleTextTextView.text = sampleText
         }
     }
 

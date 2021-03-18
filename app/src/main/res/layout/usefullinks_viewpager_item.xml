@@ -2,6 +2,7 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -22,10 +23,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
-                android:textAlignment="center"
-                android:textStyle="bold|italic"
-                android:textSize="30sp"
                 android:text="Title"
+                android:textAlignment="center"
+                android:textSize="30sp"
+                android:textStyle="bold|italic"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
@@ -36,44 +37,55 @@
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
                 android:layout_gravity="center"
-                android:background="@color/colorAccent"
                 android:layout_marginTop="6dp"
-                app:layout_constraintTop_toBottomOf="@id/page_title_textview">
-            </View>
+                android:background="@color/colorAccent"
+                app:layout_constraintTop_toBottomOf="@id/page_title_textview"></View>
 
             <ImageView
                 android:id="@+id/post_image"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
                 android:src="@drawable/sharp_error_black_36dp"
-                app:layout_constraintTop_toBottomOf="@id/line_view"
-                app:layout_constraintBottom_toTopOf="@id/frame_layout">
-            </ImageView>
+                app:layout_constraintBottom_toTopOf="@id/sample_text"
+                app:layout_constraintTop_toBottomOf="@id/line_view"/>
+
+            <TextView
+                android:id="@+id/sample_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sample text"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/post_image"
+                app:layout_constraintBottom_toTopOf="@+id/frame_layout"
+                android:gravity="center_horizontal" />
 
             <FrameLayout
                 android:id="@+id/frame_layout"
-                app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent">
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/colorAccent"
-                    android:layout_gravity="center_vertical"/>
+                    android:layout_gravity="center_vertical"
+                    android:background="@color/colorAccent" />
 
                 <TextView
                     android:id="@+id/subject_textview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textStyle="italic"
-                    android:text="Subject"
-                    android:textSize="28sp"
-                    android:textColor="@color/black"
+                    android:layout_gravity="center"
+                    android:background="@color/colorWhite"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
-                    android:layout_gravity="center"
-                    android:background="@color/colorWhite"/>
+                    android:text="Subject"
+                    android:textColor="@color/black"
+                    android:textSize="28sp"
+                    android:textStyle="italic" />
             </FrameLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
