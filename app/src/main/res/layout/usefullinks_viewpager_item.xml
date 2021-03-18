@@ -9,7 +9,8 @@
     <androidx.cardview.widget.CardView
         style="@style/UsefulLinksViewPagerCardView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:foreground="?android:attr/selectableItemBackground">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             style="@style/ElementsOnBackgroundPadding"

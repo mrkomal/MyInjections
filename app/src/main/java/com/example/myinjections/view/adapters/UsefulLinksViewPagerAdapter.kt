@@ -1,11 +1,17 @@
 package com.example.myinjections.view.adapters
 
 import android.content.ContentProvider
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -30,12 +36,21 @@ class UsefulLinksViewPagerAdapter: ListAdapter<UsefulLink,
     override fun onBindViewHolder(holder: UsefulLinksViewHolder, position: Int) {
         val currentPage = getItem(position)
         holder.bind(currentPage.title, currentPage.subject, currentPage.image_url)
+
+        // open website when item is clicked
+        holder.itemView.setOnClickListener {
+            val uri = Uri.parse(currentPage.link)
+            val intent = Intent(Intent.ACTION_VIEW, uri)
+            holder.itemView.context.also {
+                it.startActivity(intent)
+            }
+        }
     }
 
     class UsefulLinksViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
-        val titleTextView: TextView = itemView.page_title_textview
-        val subjectTextView: TextView = itemView.subject_textview
-        val imageView: ImageView = itemView.post_image
+        private val titleTextView: TextView = itemView.page_title_textview
+        private val subjectTextView: TextView = itemView.subject_textview
+        private val imageView: ImageView = itemView.post_image
 
         fun bind(title: String, subject: String, imageUrl: String) {
             titleTextView.text = title.plus(" ")
