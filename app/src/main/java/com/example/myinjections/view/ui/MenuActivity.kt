@@ -17,6 +17,7 @@ class MenuActivity : AppCompatActivity(), View.OnClickListener {
         display_injections_button.setOnClickListener(this)
         add_injection_button.setOnClickListener(this)
         display_links_button.setOnClickListener(this)
+        display_map_button.setOnClickListener(this)
     }
 
     override fun onClick(v: View) {
@@ -35,6 +36,12 @@ class MenuActivity : AppCompatActivity(), View.OnClickListener {
 
             R.id.add_injection_button -> {
                 Intent(this, AddInjectionActivity::class.java).also {
+                    startActivity(it)
+                }
+            }
+
+            R.id.display_map_button -> {
+                Intent(this, MapsActivity::class.java).also {
                     startActivity(it)
                 }
             }
