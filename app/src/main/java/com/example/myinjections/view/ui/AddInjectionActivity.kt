@@ -9,7 +9,7 @@ import android.widget.RadioButton
 import androidx.appcompat.app.AppCompatActivity
 import com.example.myinjections.R
 import com.example.myinjections.room.model.InjectionInfo
-import com.example.myinjections.view.dialogs.MissingNameDialogFragment
+import com.example.myinjections.view.dialogs.OkDialogFragment
 import com.example.myinjections.viewmodel.InjectionsViewModel
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_add_injection.*
@@ -66,7 +66,7 @@ class AddInjectionActivity : AppCompatActivity() {
 
                 if(TextUtils.isEmpty(nameField) || TextUtils.isEmpty(illnessField)){
                     //display dialog about missing information
-                    val dialog = MissingNameDialogFragment()
+                    val dialog = OkDialogFragment(R.layout.missing_name_alert_dialog_fragment)
                     dialog.show(supportFragmentManager,"MissingNameDialogFragment")
                     Log.d(INSERT_BUTTON_TAG, "Alert dialog displayed.")
                 } else {
