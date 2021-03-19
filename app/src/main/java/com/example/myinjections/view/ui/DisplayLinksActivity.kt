@@ -2,23 +2,19 @@ package com.example.myinjections.view.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.view.View
-import androidx.annotation.MainThread
+import android.view.Menu
+import android.view.MenuItem
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
-import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.example.myinjections.R
 import com.example.myinjections.view.adapters.UsefulLinksViewPagerAdapter
+import com.example.myinjections.view.dialogs.OkDialogFragment
 import com.example.myinjections.viewmodel.UsefulLinksViewModel
 import kotlinx.android.synthetic.main.activity_display_links.*
 import kotlinx.android.synthetic.main.usefullinks_viewpager_item.*
 import kotlinx.coroutines.*
 import org.koin.androidx.viewmodel.ext.android.getViewModel
-import java.util.*
-import kotlin.concurrent.schedule
 
 class DisplayLinksActivity : AppCompatActivity() {
 
@@ -70,5 +66,23 @@ class DisplayLinksActivity : AppCompatActivity() {
         usefulLinksViewModel.allLinks.observe(this, Observer {
             viewPagerAdapter.submitList(it)
         })
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.help_menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // Handle item selection
+        return when (item.itemId) {
+            R.id.help_button -> {
+                OkDialogFragment(R.layout.help_links_dialog_fragment).also{
+                    it.show(supportFragmentManager,"MissingNameDialogFragment")
+                }
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 }
