@@ -35,4 +35,8 @@
     //display links activity
     <string name="toolbar_title_display_links">USEFUL INFORMATION "</string>
     <string name="progress_bar_info">Loading…</string>
+
+    //display map activity
+    <string name="title_activity_maps">Map</string>
+    <string name="button_display_map">Seek</string>
 </resources>
