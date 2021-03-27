@@ -1,10 +1,12 @@
 package com.example.myinjections.view.ui
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.Settings
 import android.util.Log
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -23,7 +25,10 @@ import com.google.android.libraries.places.api.Places
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private var mMap: GoogleMap? = null
-    private var locationPermissionGranted = true
+    private var locationPermissionGranted = false
+
+    //permission:
+    //https://stackoverflow.com/questions/43518520/how-to-ask-user-to-enable-gps-at-the-launch-of-application
 
     // The entry point to the Fused Location Provider.
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
@@ -42,6 +47,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
+
+        //val intent = Intent(Settings.)
+        ///startActivity(intent)
     }
 
 
@@ -58,6 +66,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         // Construct a FusedLocationProviderClient.
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
+        //Log.d(TAG, )
 
         updateLocationUI()
         getDeviceLocation()
