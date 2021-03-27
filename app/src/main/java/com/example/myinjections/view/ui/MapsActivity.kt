@@ -1,26 +1,25 @@
 package com.example.myinjections.view.ui
 
 import android.Manifest
-import android.content.Intent
+import android.content.IntentSender
 import android.content.pm.PackageManager
 import android.location.Location
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.Settings
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.example.myinjections.R
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
-
+import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.common.api.ResolvableApiException
+import com.google.android.gms.location.*
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-import com.google.android.libraries.places.api.Places
+import com.google.android.gms.tasks.Task
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
@@ -68,6 +67,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
         //Log.d(TAG, )
 
+        ensureGPSIsTurnedOn()
         updateLocationUI()
         getDeviceLocation()
         addMarkers(mMap!!)
@@ -86,16 +86,24 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                         // Set the map's camera position to the current location of the device.
                         lastKnownLocation = task.result
                         if (lastKnownLocation != null) {
-                            mMap?.moveCamera(CameraUpdateFactory.newLatLngZoom(
-                                LatLng(lastKnownLocation!!.latitude,
-                                    lastKnownLocation!!.longitude), DEFAULT_ZOOM.toFloat()))
+                            mMap?.moveCamera(
+                                CameraUpdateFactory.newLatLngZoom(
+                                    LatLng(
+                                        lastKnownLocation!!.latitude,
+                                        lastKnownLocation!!.longitude
+                                    ), DEFAULT_ZOOM.toFloat()
+                                )
+                            )
+                        } else {
+                            Log.d(TAG, "Current location is null. Using defaults.")
+                            Log.e(TAG, String.format("Exception: %s", task.result))
+                            mMap?.moveCamera(
+                                CameraUpdateFactory
+                                    .newLatLngZoom(defaultLocation, DEFAULT_ZOOM.toFloat())
+                            )
+                            mMap?.uiSettings?.isMyLocationButtonEnabled =
+                                false // moze to odlaczyc? wtedy nie zniknie przy wylaczonym gps
                         }
-                    } else {
-                        Log.d(TAG, "Current location is null. Using defaults.")
-                        Log.e(TAG, "Exception: %s", task.exception)
-                        mMap?.moveCamera(CameraUpdateFactory
-                            .newLatLngZoom(defaultLocation, DEFAULT_ZOOM.toFloat()))
-                        mMap?.uiSettings?.isMyLocationButtonEnabled = false
                     }
                 }
             }
@@ -103,6 +111,44 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             Log.e("Exception: %s", e.message, e)
         }
     }
+
+
+    private fun ensureGPSIsTurnedOn() {
+        // Creation of type of location request (high accuracy)
+        val locationRequest = LocationRequest.create()
+        locationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+        val builder = LocationSettingsRequest.Builder().addLocationRequest(locationRequest)
+
+        // Asynchronous task to check the GPS status
+        val result: Task<LocationSettingsResponse> =
+            LocationServices.getSettingsClient(this).checkLocationSettings(builder.build())
+
+        // If GPS is off, show user the prompt to allow to turn it on.
+        result.addOnCompleteListener(this) { task ->
+            try {
+                task.getResult(ApiException::class.java)
+            } catch (exception: ApiException) {
+                when (exception.statusCode) {
+                    LocationSettingsStatusCodes.RESOLUTION_REQUIRED -> {
+                        try {
+                            val resolvable: ResolvableApiException = exception as ResolvableApiException
+                            // Show the dialog by calling startResolutionForResult() and check the result in onActivityResult().
+                            resolvable.startResolutionForResult(this, LocationRequest.PRIORITY_HIGH_ACCURACY)
+                        } catch (e: IntentSender.SendIntentException) {
+                            // Ignore the error.
+                        } catch (e: ClassCastException) {
+                            // Ignore, should be an impossible error.
+                        }
+                    }
+                    LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE -> {
+                        // Location settings are not satisfied. However, we have no way to fix the
+                        // settings so we won't show the dialog.
+                    }
+                }
+            }
+        }
+    }
+
 
     private fun getLocationPermission() {
         /*
@@ -113,6 +159,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         if (ContextCompat.checkSelfPermission(this.applicationContext,
                 Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             locationPermissionGranted = true
+            updateLocationUI()
         } else {
             ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
                 PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION)
@@ -124,6 +171,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                                             grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         locationPermissionGranted = false
+
         when (requestCode) {
             PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION -> {
 
@@ -131,10 +179,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 if (grantResults.isNotEmpty() &&
                     grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     locationPermissionGranted = true
+                    updateLocationUI()
                 }
             }
         }
-        updateLocationUI()
     }
 
     private fun updateLocationUI() {
@@ -163,7 +211,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             val marker = googleMap.addMarker(
                 MarkerOptions()
                     .title(place)
-                    .position(LatLng(34.0,50.0))
+                    .position(LatLng(-34.0, 151.0))
             )
         }
     }
