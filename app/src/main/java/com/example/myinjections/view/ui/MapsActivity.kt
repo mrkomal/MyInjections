@@ -6,6 +6,7 @@ import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -15,11 +16,13 @@ import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.GoogleMap.OnMyLocationButtonClickListener
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.tasks.Task
+
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
@@ -46,7 +49,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
-
         //val intent = Intent(Settings.)
         ///startActivity(intent)
     }
@@ -67,11 +69,20 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
         //Log.d(TAG, )
 
-        ensureGPSIsTurnedOn()
         updateLocationUI()
+        if(locationPermissionGranted) {
+            ensureGPSIsTurnedOn()
+        }
         getDeviceLocation()
         addMarkers(mMap!!)
+
+        mMap!!.setOnMyLocationButtonClickListener {
+            Log.d(TAG, "Find my location button clicked.")
+            getDeviceLocation()
+            true
+        }
     }
+
 
     private fun getDeviceLocation() {
         /*
@@ -85,31 +96,54 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                     if (task.isSuccessful) {
                         // Set the map's camera position to the current location of the device.
                         lastKnownLocation = task.result
-                        if (lastKnownLocation != null) {
-                            mMap?.moveCamera(
-                                CameraUpdateFactory.newLatLngZoom(
-                                    LatLng(
-                                        lastKnownLocation!!.latitude,
-                                        lastKnownLocation!!.longitude
-                                    ), DEFAULT_ZOOM.toFloat()
-                                )
-                            )
-                        } else {
-                            Log.d(TAG, "Current location is null. Using defaults.")
-                            Log.e(TAG, String.format("Exception: %s", task.result))
-                            mMap?.moveCamera(
-                                CameraUpdateFactory
-                                    .newLatLngZoom(defaultLocation, DEFAULT_ZOOM.toFloat())
-                            )
-                            mMap?.uiSettings?.isMyLocationButtonEnabled =
-                                false // moze to odlaczyc? wtedy nie zniknie przy wylaczonym gps
-                        }
+                        moveCamera(CameraMovementModes.MyLocation)
+//                        if (lastKnownLocation != null) {
+//                            //moveCameraToMyLocation()
+//                        } else {
+//                            Log.d(TAG, "Current location is null. Using defaults.")
+//                            mMap?.moveCamera(
+//                                CameraUpdateFactory
+//                                    .newLatLngZoom(defaultLocation, DEFAULT_ZOOM.toFloat())
+//                            )
+//                            //mMap?.uiSettings?.isMyLocationButtonEnabled = false
+//                        }
                     }
                 }
             }
         } catch (e: SecurityException) {
             Log.e("Exception: %s", e.message, e)
         }
+    }
+
+
+    private fun moveCamera(mode : CameraMovementModes, coordinates: LatLng? = null) {
+        // Firstly make sure, that myLocation is available (if chosen myLocation type).
+        // If not available change mode to default and throw error.
+        val confirmedMode: CameraMovementModes =
+            if (mode == CameraMovementModes.MyLocation && lastKnownLocation == null) {
+                Log.e(TAG, "Last known location was empty, so mode switched to default.")
+                CameraMovementModes.Default
+            }
+            else mode
+
+        // Assign new coordinates depending on chosen mode.
+        val newCoordinates = when(confirmedMode){
+            CameraMovementModes.Default -> defaultLocation
+
+            CameraMovementModes.MyLocation ->
+                LatLng(
+                    lastKnownLocation!!.latitude,
+                    lastKnownLocation!!.longitude)
+
+            CameraMovementModes.Other -> coordinates
+        }
+
+        // Then move camera to newCooradinates.
+        mMap?.moveCamera(
+            CameraUpdateFactory.newLatLngZoom(
+                newCoordinates,
+                DEFAULT_ZOOM.toFloat())
+        )
     }
 
 
@@ -166,6 +200,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         }
     }
 
+
     override fun onRequestPermissionsResult(requestCode: Int,
                                             permissions: Array<String>,
                                             grantResults: IntArray) {
@@ -184,6 +219,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             }
         }
     }
+
 
     private fun updateLocationUI() {
         if (mMap == null) {
@@ -204,6 +240,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         }
     }
 
+
     private fun addMarkers(googleMap: GoogleMap) {
         val places = arrayListOf("a")
 
@@ -215,4 +252,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             )
         }
     }
+}
+
+enum class CameraMovementModes {
+    Default, MyLocation, Other
 }
