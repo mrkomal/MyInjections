@@ -2,9 +2,12 @@ package com.example.myinjections.modules
 
 import android.app.Application
 import androidx.room.Room
+import com.example.myinjections.network.service.PlaceService
 import com.example.myinjections.network.service.UsefulLinksService
 import com.example.myinjections.repository.injections.InjectionsRepository
 import com.example.myinjections.repository.injections.InjectionsRepositoryImpl
+import com.example.myinjections.repository.places.PlacesRepository
+import com.example.myinjections.repository.places.PlacesRepositoryImpl
 import com.example.myinjections.repository.usefullinks.UsefulLinksRepository
 import com.example.myinjections.repository.usefullinks.UsefulLinksRepositoryImpl
 import com.example.myinjections.room.database.InjectionsDatabase
@@ -42,8 +45,13 @@ val repositoryModule = module {
         return UsefulLinksRepositoryImpl(service)
     }
 
+    fun providePlacesRepository(service: PlaceService): PlacesRepository {
+        return PlacesRepositoryImpl(service)
+    }
+
     single { provideInjectionsRepository(dao = get()) }
     single { provideUsefulLinksRepository(service = get())}
+    single { providePlacesRepository(service = get())}
 }
 
 
@@ -64,6 +72,11 @@ val networkModule = module {
         return retrofit.create(UsefulLinksService::class.java)
     }
 
+    fun providePlacesApi(retrofit: Retrofit): PlaceService {
+        return retrofit.create(PlaceService::class.java)
+    }
+
     single { provideRetrofit() }
     single { provideUsefulLinkApi(retrofit = get()) }
+    single { providePlacesApi(retrofit = get())}
 }

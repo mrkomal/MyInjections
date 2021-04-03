@@ -9,7 +9,12 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.LifecycleCoroutineScope
 import com.example.myinjections.R
+import com.example.myinjections.network.model.Place
+import com.example.myinjections.network.service.PlaceService
+import com.example.myinjections.repository.places.PlacesRepository
+import com.example.myinjections.repository.places.PlacesRepositoryImpl
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
@@ -17,15 +22,24 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptor
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.tasks.Task
+import kotlinx.coroutines.*
+import org.koin.android.ext.android.inject
+import org.koin.core.context.GlobalContext.get
+
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private var mMap: GoogleMap? = null
     private var locationPermissionGranted = false
+    private val placesRepository: PlacesRepository by inject()
 
     //permission:
     //https://stackoverflow.com/questions/43518520/how-to-ask-user-to-enable-gps-at-the-launch-of-application
@@ -34,7 +48,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
 
     private var lastKnownLocation: Location? = null
-    private val DEFAULT_ZOOM = 15
+    private val DEFAULT_ZOOM = 12
     private val TAG = MapsActivity::class.java.simpleName
     private val defaultLocation = LatLng(-34.0, 151.0)
     private val PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1
@@ -66,6 +80,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             ensureGPSIsTurnedOn()
         }
         getDeviceLocation()
+
         addMarkers(mMap!!)
 
         mMap!!.setOnMyLocationButtonClickListener {
@@ -233,18 +248,26 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
 
-    private fun addMarkers(googleMap: GoogleMap) {
-        val places = arrayListOf("a")
-
-        places.forEach { place ->
-            val marker = googleMap.addMarker(
+    private fun addMarkers(googleMap: GoogleMap)= runBlocking {
+        val placesList = getNearbyPlaces()
+        placesList?.forEach { place ->
+            googleMap.addMarker(
                 MarkerOptions()
-                    .title(place)
-                    .position(LatLng(-34.0, 151.0))
-            )
+                    .title(place.name)
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.baseline_local_pharmacy_black_18dp))
+                    .position(LatLng(place.latitude, place.longitude))
+                )
         }
     }
+
+
+    private suspend fun getNearbyPlaces(): List<Place>? = withContext(Dispatchers.IO) {
+        val placesList = async { placesRepository.getAllPlaces() }
+        Log.d(TAG, String.format("Current: %s", Thread.currentThread().name))
+        placesList.await()
+    }
 }
+
 
 enum class CameraMovementModes {
     Default, MyLocation, Other
