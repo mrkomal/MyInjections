@@ -37,6 +37,6 @@
     <string name="progress_bar_info">Loading…</string>
 
     //display map activity
-    <string name="title_activity_maps">Map</string>
+    <string name="title_activity_maps">NEARBY MEDICAL SERVICE </string>
     <string name="button_display_map">Seek</string>
 </resources>

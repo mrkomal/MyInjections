@@ -3,6 +3,7 @@ package com.example.myinjections.view.ui
 import android.Manifest
 import android.content.IntentSender
 import android.content.pm.PackageManager
+import android.opengl.Visibility
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
@@ -23,6 +24,8 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.tasks.Task
+import com.google.android.material.internal.VisibilityAwareImageButton
+import kotlinx.android.synthetic.main.activity_maps.*
 import kotlinx.coroutines.*
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 
@@ -45,6 +48,14 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_maps)
 
+        //Setting toolbar
+        val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.maps_toolbar)
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+        toolbar.setNavigationOnClickListener {
+            finish()
+        }
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
@@ -53,8 +64,32 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         // ViewModel
         placesViewModel = getViewModel()
         subscribeToObservers()
+
+        // Floating buttons
+        unwrap_button.setOnClickListener {
+            changeUnwrapButtonState()
+
+            if(placesViewModel.isUnwrapButtonClicked){
+                only_clinics_button.visibility = VisibilityAwareImageButton.VISIBLE
+                only_pharmacies_button.visibility = VisibilityAwareImageButton.VISIBLE
+            } else {
+                only_clinics_button.visibility = VisibilityAwareImageButton.INVISIBLE
+                only_pharmacies_button.visibility = VisibilityAwareImageButton.INVISIBLE
+            }
+        }
+
+        only_clinics_button.setOnClickListener {
+            TODO()
+        }
+
+        only_pharmacies_button.setOnClickListener {
+            TODO()
+        }
     }
 
+    private fun changeUnwrapButtonState() {
+        placesViewModel.isUnwrapButtonClicked = !placesViewModel.isUnwrapButtonClicked
+    }
 
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap

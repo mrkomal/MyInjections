@@ -23,6 +23,8 @@ class PlacesViewModel(private val placesRepository: PlacesRepository) : ViewMode
 
     var lastKnownLocation: Location? = null
 
+    var isUnwrapButtonClicked = false
+
     fun getNearestPlaces(rangeInKilometers: Double = NEAREST_PLACES_RADIUS) = viewModelScope.launch {
         placesRepository.getAllPlaces()
             .map { list ->
