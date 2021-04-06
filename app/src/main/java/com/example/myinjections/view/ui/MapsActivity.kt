@@ -3,18 +3,15 @@ package com.example.myinjections.view.ui
 import android.Manifest
 import android.content.IntentSender
 import android.content.pm.PackageManager
-import android.location.Location
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.LifecycleCoroutineScope
+import androidx.lifecycle.Observer
 import com.example.myinjections.R
 import com.example.myinjections.network.model.Place
-import com.example.myinjections.network.service.PlaceService
-import com.example.myinjections.repository.places.PlacesRepository
-import com.example.myinjections.repository.places.PlacesRepositoryImpl
+import com.example.myinjections.viewmodel.PlacesViewModel
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
@@ -22,36 +19,27 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.BitmapDescriptor
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.tasks.Task
 import kotlinx.coroutines.*
-import org.koin.android.ext.android.inject
-import org.koin.core.context.GlobalContext.get
-
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import org.koin.androidx.viewmodel.ext.android.getViewModel
 
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private var mMap: GoogleMap? = null
     private var locationPermissionGranted = false
-    private val placesRepository: PlacesRepository by inject()
-
-    //permission:
-    //https://stackoverflow.com/questions/43518520/how-to-ask-user-to-enable-gps-at-the-launch-of-application
 
     // The entry point to the Fused Location Provider.
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
 
-    private var lastKnownLocation: Location? = null
     private val DEFAULT_ZOOM = 12
     private val TAG = MapsActivity::class.java.simpleName
-    private val defaultLocation = LatLng(-34.0, 151.0)
     private val PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1
+
+    private lateinit var placesViewModel: PlacesViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,31 +49,29 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
+
+        // ViewModel
+        placesViewModel = getViewModel()
+        subscribeToObservers()
     }
 
 
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
 
-        // Add a marker in Sydney and move the camera
-       // mMap!!.addMarker(MarkerOptions().position(defaultLocation).title("Marker in Sydney"))
-       // mMap!!.moveCamera(CameraUpdateFactory.newLatLng(defaultLocation))
-
         // Construct a FusedLocationProviderClient.
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
-        //Log.d(TAG, )
-
         updateLocationUI()
+
         if(locationPermissionGranted) {
             ensureGPSIsTurnedOn()
         }
         getDeviceLocation()
 
-        addMarkers(mMap!!)
-
         mMap!!.setOnMyLocationButtonClickListener {
             Log.d(TAG, "Find my location button clicked.")
             getDeviceLocation()
+            placesViewModel.getNearestPlaces()
             true
         }
     }
@@ -102,18 +88,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 locationResult.addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
                         // Set the map's camera position to the current location of the device.
-                        lastKnownLocation = task.result
+                        placesViewModel.lastKnownLocation = task.result
                         moveCamera(CameraMovementModes.MyLocation)
-//                        if (lastKnownLocation != null) {
-//                            //moveCameraToMyLocation()
-//                        } else {
-//                            Log.d(TAG, "Current location is null. Using defaults.")
-//                            mMap?.moveCamera(
-//                                CameraUpdateFactory
-//                                    .newLatLngZoom(defaultLocation, DEFAULT_ZOOM.toFloat())
-//                            )
-//                            //mMap?.uiSettings?.isMyLocationButtonEnabled = false
-//                        }
                     }
                 }
             }
@@ -127,7 +103,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         // Firstly make sure, that myLocation is available (if chosen myLocation type).
         // If not available change mode to default and throw error.
         val confirmedMode: CameraMovementModes =
-            if (mode == CameraMovementModes.MyLocation && lastKnownLocation == null) {
+            if (mode == CameraMovementModes.MyLocation && placesViewModel.lastKnownLocation == null) {
                 Log.e(TAG, "Last known location was empty, so mode switched to default.")
                 CameraMovementModes.Default
             }
@@ -135,12 +111,12 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         // Assign new coordinates depending on chosen mode.
         val newCoordinates = when(confirmedMode){
-            CameraMovementModes.Default -> defaultLocation
+            CameraMovementModes.Default -> PlacesViewModel.DEFAULT_LOCATION
 
             CameraMovementModes.MyLocation ->
                 LatLng(
-                    lastKnownLocation!!.latitude,
-                    lastKnownLocation!!.longitude)
+                    placesViewModel.lastKnownLocation!!.latitude,
+                    placesViewModel.lastKnownLocation!!.longitude)
 
             CameraMovementModes.Other -> coordinates
         }
@@ -239,7 +215,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             } else {
                 mMap?.isMyLocationEnabled = false
                 mMap?.uiSettings?.isMyLocationButtonEnabled = false
-                lastKnownLocation = null
+                placesViewModel.lastKnownLocation = null
                 getLocationPermission()
             }
         } catch (e: SecurityException) {
@@ -248,23 +224,22 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
 
-    private fun addMarkers(googleMap: GoogleMap)= runBlocking {
-        val placesList = getNearbyPlaces()
-        placesList?.forEach { place ->
-            googleMap.addMarker(
+    private fun subscribeToObservers() {
+        placesViewModel.places.observe(this, Observer {
+            addMarkers(it, mMap)
+        })
+    }
+
+
+    private fun addMarkers(placesList: List<Place>, googleMap: GoogleMap?)= runBlocking {
+        placesList.forEach { place ->
+            googleMap?.addMarker(
                 MarkerOptions()
                     .title(place.name)
                     .icon(BitmapDescriptorFactory.fromResource(R.drawable.baseline_local_pharmacy_black_18dp))
                     .position(LatLng(place.latitude, place.longitude))
-                )
+            )
         }
-    }
-
-
-    private suspend fun getNearbyPlaces(): List<Place>? = withContext(Dispatchers.IO) {
-        val placesList = async { placesRepository.getAllPlaces() }
-        Log.d(TAG, String.format("Current: %s", Thread.currentThread().name))
-        placesList.await()
     }
 }
 
