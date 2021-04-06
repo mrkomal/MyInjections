@@ -68,27 +68,29 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         // Floating buttons
         unwrap_button.setOnClickListener {
             changeUnwrapButtonState()
-
-            if(placesViewModel.isUnwrapButtonClicked){
-                only_clinics_button.visibility = VisibilityAwareImageButton.VISIBLE
-                only_pharmacies_button.visibility = VisibilityAwareImageButton.VISIBLE
-            } else {
-                only_clinics_button.visibility = VisibilityAwareImageButton.INVISIBLE
-                only_pharmacies_button.visibility = VisibilityAwareImageButton.INVISIBLE
-            }
         }
 
         only_clinics_button.setOnClickListener {
-            TODO()
+            placesViewModel.getNearestClinics()
+            changeUnwrapButtonState()
         }
 
         only_pharmacies_button.setOnClickListener {
-            TODO()
+            placesViewModel.getNearestPharmacies()
+            changeUnwrapButtonState()
         }
     }
 
     private fun changeUnwrapButtonState() {
         placesViewModel.isUnwrapButtonClicked = !placesViewModel.isUnwrapButtonClicked
+
+        if(placesViewModel.isUnwrapButtonClicked){
+            only_clinics_button.visibility = VisibilityAwareImageButton.VISIBLE
+            only_pharmacies_button.visibility = VisibilityAwareImageButton.VISIBLE
+        } else {
+            only_clinics_button.visibility = VisibilityAwareImageButton.INVISIBLE
+            only_pharmacies_button.visibility = VisibilityAwareImageButton.INVISIBLE
+        }
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
@@ -106,7 +108,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         mMap!!.setOnMyLocationButtonClickListener {
             Log.d(TAG, "Find my location button clicked.")
             getDeviceLocation()
-            placesViewModel.getNearestPlaces()
             true
         }
     }

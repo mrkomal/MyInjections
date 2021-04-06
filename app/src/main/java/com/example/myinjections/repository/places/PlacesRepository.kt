@@ -6,5 +6,7 @@ import kotlinx.coroutines.flow.Flow
 interface PlacesRepository {
     fun getAllPlaces(): Flow<List<Place>>
 
-    suspend fun getAllPharmacies(): Flow<List<Place>>
+    fun getAllPharmacies(): Flow<List<Place>>
+
+    fun getAllClinics(): Flow<List<Place>>
 }

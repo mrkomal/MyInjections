@@ -13,9 +13,14 @@ class PlacesRepositoryImpl(private val placeService: PlaceService): PlacesReposi
         emit(placeService.getAllPlaces())
     }.flowOn(Dispatchers.IO)
 
-    override suspend fun getAllPharmacies(): Flow<List<Place>> = flow {
+    override fun getAllPharmacies(): Flow<List<Place>> = flow {
         val placeType = "pharmacy"
         emit(placeService.getAllPlacesOfSpecifiedType(placeType))
-    }
+    }.flowOn(Dispatchers.IO)
+
+    override fun getAllClinics(): Flow<List<Place>> = flow {
+        val placeType = "clinic"
+        emit(placeService.getAllPlacesOfSpecifiedType(placeType))
+    }.flowOn(Dispatchers.IO)
 
 }
