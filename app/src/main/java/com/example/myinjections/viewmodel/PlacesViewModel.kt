@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 class PlacesViewModel(private val placesRepository: PlacesRepository) : ViewModel() {
 
     companion object {
-        const val NEAREST_PLACES_RADIUS: Double = 2.0
+        const val NEAREST_PLACES_RADIUS: Double = 5.0
         val DEFAULT_LOCATION = LatLng(-34.0, 151.0)
     }
 
