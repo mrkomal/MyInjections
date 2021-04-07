@@ -271,11 +271,15 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
 
     private fun addMarkers(placesList: List<Place>, googleMap: GoogleMap?)= runBlocking {
+        // remove old markers
+        googleMap?.clear()
+
+        // add new markers
         placesList.forEach { place ->
             googleMap?.addMarker(
                 MarkerOptions()
                     .title(place.name)
-                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.baseline_local_pharmacy_black_18dp))
+                    .icon(BitmapDescriptorFactory.fromResource(placesViewModel.currentPlaceTypeIcon))
                     .position(LatLng(place.latitude, place.longitude))
             )
         }

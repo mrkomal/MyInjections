@@ -6,6 +6,7 @@ import com.example.myinjections.repository.places.PlacesRepository
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.collect
 import androidx.lifecycle.*
+import com.example.myinjections.R
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.SphericalUtil
 import kotlinx.coroutines.flow.Flow
@@ -16,6 +17,8 @@ class PlacesViewModel(private val placesRepository: PlacesRepository) : ViewMode
     companion object {
         const val NEAREST_PLACES_RADIUS: Double = 5.0
         val DEFAULT_LOCATION = LatLng(-34.0, 151.0)
+        val PHARMACY_ICON_ID = R.drawable.baseline_local_pharmacy_black_18dp
+        val CLINIC_ICON_ID = R.drawable.baseline_medical_services_black_24dp
     }
 
     private var _places = MutableLiveData<List<Place>>()
@@ -26,13 +29,17 @@ class PlacesViewModel(private val placesRepository: PlacesRepository) : ViewMode
 
     var isUnwrapButtonClicked = false
 
+    var currentPlaceTypeIcon: Int = CLINIC_ICON_ID
+
     fun getNearestClinics() {
         val flow = placesRepository.getAllClinics()
+        currentPlaceTypeIcon = CLINIC_ICON_ID
         filterPlacesFlowAndSetLiveData(flow)
     }
 
     fun getNearestPharmacies() {
         val flow = placesRepository.getAllPharmacies()
+        currentPlaceTypeIcon = PHARMACY_ICON_ID
         filterPlacesFlowAndSetLiveData(flow)
     }
 
