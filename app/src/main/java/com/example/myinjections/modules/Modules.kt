@@ -59,7 +59,7 @@ val repositoryModule = module {
 val viewModelModule = module {
     // Specific viewModel pattern to tell Koin how to build ViewModel
     viewModel { InjectionsViewModel(repository = get()) }
-    viewModel { UsefulLinksViewModel(repository = get()) }
+    viewModel { UsefulLinksViewModel(app = androidApplication(), repository = get()) }
     viewModel { PlacesViewModel(placesRepository = get()) }
 }
 
