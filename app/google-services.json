@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "342585872974",
+    "project_id": "myinjections",
+    "storage_bucket": "myinjections.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:342585872974:android:4e94492ed7d16d6bc2a91f",
+        "android_client_info": {
+          "package_name": "com.example.myinjections"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "342585872974-s0s7ens0qugh7e904hnltuv2ncs3umoj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.myinjections",
+            "certificate_hash": "7a36d781954747b49de9aa812bd0780631587b36"
+          }
+        },
+        {
+          "client_id": "342585872974-hl9flv5nke1rj6d7vckgpu1ia5qbml10.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC-BE8dO9rqzQ1UCmJ_e6pRFO_HZYVF_pg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "342585872974-hl9flv5nke1rj6d7vckgpu1ia5qbml10.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
