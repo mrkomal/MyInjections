@@ -7,6 +7,7 @@
     <string name="button_add">Add</string>
     <string name="button_display">Display</string>
     <string name="button_display_links">Discover</string>
+    <string name="button_display_inj_amount">Report</string>
 
     //add injection activity
     <string name="toolbar_title_add_injection">ADD NEW INJECTION "</string>

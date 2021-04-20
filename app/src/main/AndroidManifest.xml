@@ -34,6 +34,9 @@
             android:value="@string/google_maps_key" />
 
         <activity
+            android:name=".view.ui.InjectionAmountActivity"
+            android:parentActivityName=".view.ui.MenuActivity" />
+        <activity
             android:name=".view.ui.MapsActivity"
             android:parentActivityName=".view.ui.MenuActivity" />
         <activity

@@ -24,6 +24,7 @@ class MenuActivity : AppCompatActivity(), View.OnClickListener {
         add_injection_button.setOnClickListener(this)
         display_links_button.setOnClickListener(this)
         display_map_button.setOnClickListener(this)
+        display_injection_amount.setOnClickListener(this)
 
         defineFirebaseToken()
     }
@@ -50,6 +51,12 @@ class MenuActivity : AppCompatActivity(), View.OnClickListener {
 
             R.id.display_map_button -> {
                 Intent(this, MapsActivity::class.java).also {
+                    startActivity(it)
+                }
+            }
+
+            R.id.display_injection_amount -> {
+                Intent(this, InjectionAmountActivity::class.java).also {
                     startActivity(it)
                 }
             }

@@ -7,6 +7,8 @@ import com.example.myinjections.R
 
 class InjectionAmountActivity : AppCompatActivity() {
 
+    private val TAG = InjectionAmountActivity::class.java.simpleName
+
     override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
         super.onCreate(savedInstanceState, persistentState)
         setContentView(R.layout.activity_injection_amount)
