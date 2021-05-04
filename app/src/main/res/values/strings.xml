@@ -42,5 +42,6 @@
     <string name="button_display_map">Seek</string>
 
     //report injection activity
-    <string name="toolbar_title_injection_amount">REPORT INJECTION </string>
+    <string name="toolbar_title_injection_amount">REPORT INJECTION "</string>
+    <string name="last_injection_text">Last injection:</string>
 </resources>

@@ -2,10 +2,18 @@ package com.example.myinjections.view.ui
 
 import android.os.Bundle
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModel
 import com.example.myinjections.R
+import com.example.myinjections.viewmodel.InjectionAmountViewModel
+import org.koin.androidx.viewmodel.ext.android.getViewModel
 
 class InjectionAmountActivity : AppCompatActivity() {
+
+    private lateinit var injectionAmountViewModel: InjectionAmountViewModel
+    private lateinit var injectionImageView: ImageView
+    private lateinit var injectionDate: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,9 +27,29 @@ class InjectionAmountActivity : AppCompatActivity() {
             finish()
         }
 
-        val a = findViewById<ImageView>(R.id.injection_picture)
-        a.setOnClickListener {
-            a.setImageResource(R.drawable.pic_injection_state_1)
+        injectionImageView = findViewById(R.id.injection_picture)
+        injectionDate = findViewById(R.id.last_injection_date)
+
+        // ViewModel
+        injectionAmountViewModel = getViewModel()
+
+        // set current picture and val
+        setImageViewImageResource()
+        setLastInjectionDate()
+
+        // update picture when image is pressed
+        injectionImageView.setOnClickListener {
+            injectionAmountViewModel.updateIconOnClick()
+            setImageViewImageResource()
+            setLastInjectionDate()
         }
+    }
+
+    private fun setImageViewImageResource(){
+        injectionImageView.setImageResource(injectionAmountViewModel.imageToDisplay)
+    }
+
+    private fun setLastInjectionDate(){
+        injectionDate.text = injectionAmountViewModel.lastAppUpdateFromSharedPref ?: ""
     }
 }

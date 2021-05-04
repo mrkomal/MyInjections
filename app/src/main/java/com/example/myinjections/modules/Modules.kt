@@ -12,6 +12,7 @@ import com.example.myinjections.repository.usefullinks.UsefulLinksRepository
 import com.example.myinjections.repository.usefullinks.UsefulLinksRepositoryImpl
 import com.example.myinjections.room.database.InjectionsDatabase
 import com.example.myinjections.room.model.InjectionsDao
+import com.example.myinjections.viewmodel.InjectionAmountViewModel
 import com.example.myinjections.viewmodel.InjectionsViewModel
 import com.example.myinjections.viewmodel.PlacesViewModel
 import com.example.myinjections.viewmodel.UsefulLinksViewModel
@@ -61,6 +62,7 @@ val viewModelModule = module {
     viewModel { InjectionsViewModel(repository = get()) }
     viewModel { UsefulLinksViewModel(app = androidApplication(), repository = get()) }
     viewModel { PlacesViewModel(app = androidApplication(), placesRepository = get()) }
+    viewModel { InjectionAmountViewModel(app = androidApplication()) }
 }
 
 
