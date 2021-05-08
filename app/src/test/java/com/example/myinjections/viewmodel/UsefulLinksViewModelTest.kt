@@ -1,15 +1,18 @@
 package com.example.myinjections.viewmodel
 
+import android.app.Application
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.example.myinjections.MainCoroutineRule
 import com.example.myinjections.getOrAwaitValueTest
 import com.example.myinjections.network.model.UsefulLink
 import com.example.myinjections.repository.usefullinks.UsefulLinksRepository
 import com.example.myinjections.repository.usefullinks.UsefulLinksRepositoryImpl
+import com.example.myinjections.tools.InternetConnectionState
 import junit.framework.Assert.assertTrue
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.runBlockingTest
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
@@ -38,22 +41,31 @@ class UsefulLinksViewModelTest : KoinTest {
 
     //Mock objects
     private val mockRepository: UsefulLinksRepository by inject()
+    private val mockApp: Application by inject()
+    private val mockConn: InternetConnectionState by inject()
 
     //Utilities
-    private val mockUsefulLink: UsefulLink by lazy {
-        UsefulLink(1,"TitleFromApi", "SubjectFromApi","LinkFromService", image_url = "A", sample_text = "B")
-    }
+    private val mockUsefulLink: UsefulLink = UsefulLink(1,"TitleFromApi", "SubjectFromApi",
+        "LinkFromService", image_url = "A", sample_text = "B")
 
     @Before
     fun setUp() {
         startKoin {
             modules(
                 module {
-                    viewModel { UsefulLinksViewModel(get()) }
+                    viewModel { UsefulLinksViewModel(get(), get(), get()) }
                     single<UsefulLinksRepository> { mock(UsefulLinksRepository::class.java) }
+                    single<Application> { mock(Application::class.java) }
+                    single<InternetConnectionState> { mock(InternetConnectionState::class.java) }
                 }
             )
         }
+
+        Mockito.`when`(mockRepository.getAllLinks()).thenReturn(flow{
+            emit(listOf(mockUsefulLink))
+        })
+
+        Mockito.`when`(mockConn.hasInternetConnection(mockApp)).thenReturn(true)
     }
 
     @After
@@ -61,12 +73,10 @@ class UsefulLinksViewModelTest : KoinTest {
         stopKoin()
     }
 
+    @ExperimentalCoroutinesApi
     @Test
-    fun getAllLinksWorksCorrectly_returnTrue() = runBlocking {
-        Mockito.`when`(mockRepository.getAllLinks()).thenReturn(flow{
-            emit(listOf(mockUsefulLink))
-        })
-
+    fun getAllLinksWorksCorrectly_returnTrue() {
+        testViewModel.getAllLinks()
         val valsFromViewModel = testViewModel.allLinks.getOrAwaitValueTest()
         assertTrue("LiveData does not contain required value.",
             valsFromViewModel.contains(mockUsefulLink))
