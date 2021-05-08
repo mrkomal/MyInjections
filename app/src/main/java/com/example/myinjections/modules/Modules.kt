@@ -12,6 +12,7 @@ import com.example.myinjections.repository.usefullinks.UsefulLinksRepository
 import com.example.myinjections.repository.usefullinks.UsefulLinksRepositoryImpl
 import com.example.myinjections.room.database.InjectionsDatabase
 import com.example.myinjections.room.model.InjectionsDao
+import com.example.myinjections.tools.InternetConnectionState
 import com.example.myinjections.tools.InternetConnectionStateImpl
 import com.example.myinjections.viewmodel.InjectionAmountViewModel
 import com.example.myinjections.viewmodel.InjectionsViewModel
@@ -61,10 +62,12 @@ val repositoryModule = module {
 val viewModelModule = module {
     // Specific viewModel pattern to tell Koin how to build ViewModel
     viewModel { InjectionsViewModel(repository = get()) }
-    viewModel { UsefulLinksViewModel(app = androidApplication(), repository = get()) }
-    viewModel { PlacesViewModel(app = androidApplication(), placesRepository = get(),
-        internetConnectionState = InternetConnectionStateImpl()) }
+    viewModel { UsefulLinksViewModel(app = androidApplication(), repository = get(), internetConnectionState = get()) }
+    viewModel { PlacesViewModel(app = androidApplication(), placesRepository = get(), internetConnectionState = get()) }
     viewModel { InjectionAmountViewModel(app = androidApplication()) }
+
+    // class that handles internet connection state for viewmodels
+    single<InternetConnectionState> { InternetConnectionStateImpl() }
 }
 
 
