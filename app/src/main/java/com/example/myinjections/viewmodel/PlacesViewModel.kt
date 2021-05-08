@@ -26,8 +26,10 @@ class PlacesViewModel(private val app: Application,
                       private val placesRepository: PlacesRepository) : AndroidViewModel(app) {
 
     companion object {
+        // Default radius set to 5 km
         const val NEAREST_PLACES_RADIUS: Double = 5.0
-        val DEFAULT_LOCATION = LatLng(-34.0, 151.0)
+        // Main Square in Cracow as default Location
+        val DEFAULT_LOCATION = LatLng(50.06177188776352, 19.93736629340411)
         val PHARMACY_ICON_ID = R.drawable.baseline_local_pharmacy_black_18dp
         val CLINIC_ICON_ID = R.drawable.baseline_medical_services_black_24dp
     }
