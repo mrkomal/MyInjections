@@ -90,12 +90,12 @@ class PlacesViewModel(private val app: Application,
     }
 
 
-    private fun calculateDistanceBetweenTwoLocationsInKm(from: LatLng, to: LatLng): Double {
+    fun calculateDistanceBetweenTwoLocationsInKm(from: LatLng, to: LatLng): Double {
         return SphericalUtil.computeDistanceBetween(from, to) / 1000
     }
 
 
-    private fun getInternetConnection(): Boolean {
+    fun getInternetConnection(): Boolean {
         return internetConnectionState.hasInternetConnection(app)
     }
 }
