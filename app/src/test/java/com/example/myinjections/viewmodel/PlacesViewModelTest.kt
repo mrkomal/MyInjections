@@ -17,6 +17,7 @@ import com.google.android.gms.maps.model.LatLng
 import junit.framework.Assert.assertTrue
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
@@ -90,5 +91,22 @@ class PlacesViewModelTest: KoinTest {
 
         assertTrue("Wrong number of places. Should be $correctNumberOfPlaces, but get $actualNumberOfPlaces.",
             actualNumberOfPlaces == correctNumberOfPlaces)
+    }
+
+    @Test
+    fun calculateDistanceBetweenTwoLocationsInKm_worksCorrectly() {
+        val latLng1 = LatLng(0.0,0.0)
+        val latLng2 = LatLng(1.0,1.0)
+
+        val correctDistance = 157.2496034104515
+        val calculatedDistance = testViewModel.calculateDistanceBetweenTwoLocationsInKm(latLng1,latLng2)
+
+        assertTrue("Expected distance: $correctDistance, but got $calculatedDistance",
+            calculatedDistance == correctDistance)
+    }
+
+    @Test
+    fun getInternetConnection_returnsTrue() {
+        assertTrue("Invalid value.", testViewModel.getInternetConnection())
     }
 }
