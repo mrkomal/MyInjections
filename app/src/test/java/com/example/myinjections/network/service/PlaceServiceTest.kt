@@ -29,11 +29,17 @@ class PlaceServiceTest : KoinTest {
 
     @Test
     fun getAllPlacesWorksCorrectly_returnsTrue() = runBlocking{
-        assertTrue(service.getAllPlaces().size == 3)
+        val correctNumber = 14
+        val obtainedNumber = service.getAllPlaces().size
+        assertTrue("Wrong number of places. Got $obtainedNumber, instead of $correctNumber",
+            correctNumber == obtainedNumber)
     }
 
     @Test
     fun getOnlyPharmaciesWorksCorrectly_returnsTrue() = runBlocking {
-        assertTrue(service.getAllPlacesOfSpecifiedType(place = "pharmacy").size == 3)
+        val correctNumber = 8
+        val obtainedNumber = service.getAllPlacesOfSpecifiedType(place = "pharmacy").size
+        assertTrue("Wrong number of places of pharmacy type. Got $obtainedNumber, instead of $correctNumber.",
+            correctNumber == obtainedNumber)
     }
 }
