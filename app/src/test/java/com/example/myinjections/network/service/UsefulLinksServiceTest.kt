@@ -17,8 +17,14 @@ class UsefulLinksServiceTest : KoinTest {
     private val service: UsefulLinksService by inject()
     
     // Example JSON that is inside database.
-    private val usefulLink = UsefulLink(id=1, subject= "Worth to know", title = "What is vaccination?",
-        link = "https://en.wikipedia.org/wiki/Vaccination", image_url = "A", sample_text = "B")
+    private val usefulLink = UsefulLink(
+        id=1,
+        subject= "Worth to know",
+        title = "What is vaccination?",
+        link = "https://en.wikipedia.org/wiki/Vaccination",
+        image_url = "https://cdnuploads.aa.com.tr/uploads/Contents/2020/12/17/thumbs_b_c_8aa06369577e63dca032e21f3105e919.jpg?v=125923",
+        sample_text = "Vaccination is the administration of a vaccine to help the immune system develop protection from a disease. Vaccines contain a microorganism or virus in a weakened, live or killed state, or proteins or toxins..."
+    )
 
     @Before
     fun setUp() {
@@ -37,11 +43,15 @@ class UsefulLinksServiceTest : KoinTest {
     }
 
     @Test
-    fun apiGetLinksFunctionWorksCorrectly_returnsTrue(): Unit = runBlocking {
-        val valsFromApi = service.getLinks()
-        assertTrue("Api returns nothing or does not contain searched element.",
-            valsFromApi.contains(usefulLink)
-        )
+    fun apiGetLinksFunctionReturnsExpectedNumberOfUsefulLinks_returnsTrue(): Unit = runBlocking {
+        val numOfObjectsFromApi = service.getLinks().count()
+        val correctNumber = 6
+
+        assertTrue("Api returns wrong number of elements.", numOfObjectsFromApi == correctNumber)
     }
 
+    @Test
+    fun apiGetLinksFunctionReturnsCorrectObjects_returnsTrue(): Unit = runBlocking {
+        assertTrue("Api does not return expected element.", service.getLinks().contains(usefulLink))
+    }
 }
