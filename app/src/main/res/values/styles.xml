@@ -1,10 +1,102 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your theme here. -->
+        //colors
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@color/colorBackground</item>
+
+        //font
+        <item name="fontFamily">@font/asleepytiming</item>
+        <item name="android:textSize">22sp</item>
+        <item name='android:textStyle'>italic</item>
+        <item name="android:textColor">@color/black</item>
+
+        //activity animations
+        <item name="android:windowAnimationStyle">@style/CustomActivityAnimation</item>
+
+        //SearchView style
+        <item name="searchViewStyle">@style/SearchViewStyle</item>
     </style>
 
+    <style name="CustomActivityAnimation" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/slide_in_right</item>
+        <item name="android:activityOpenExitAnimation">@anim/slide_out_left</item>
+        <item name="android:activityCloseEnterAnimation">@anim/slide_in_left</item>
+        <item name="android:activityCloseExitAnimation">@anim/slide_out_right</item>
+    </style>
+
+    <style name="ElementsOnBackgroundPadding">
+        <item name="android:padding">16dp</item>
+    </style>
+
+    <style name="CardViewRecyclerViewPadding">
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingBottom">12dp</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingRight">16dp</item>
+    </style>
+
+    <style name="AddInjectionCardView">
+        <item name="cardBackgroundColor">@color/colorTileCardView</item>
+        <item name="cardCornerRadius">16dp</item>
+        <item name="android:layout_marginBottom">8dp</item>
+    </style>
+
+    <style name="UsefulLinksViewPagerCardView">
+        <item name="cardBackgroundColor">@color/colorTileCardView</item>
+        <item name="cardCornerRadius">16dp</item>
+        <item name="android:layout_margin">16dp</item>
+    </style>
+
+    <style name="BottomCardViewRecyclerView">
+        <item name="cardBackgroundColor">@color/colorAccent</item>
+        <item name="android:layout_marginTop">16dp</item>
+    </style>
+
+    <style name="AddInjectionCardView.LayoutPadding">
+        <item name="android:padding">8dp</item>
+        <item name="android:layout_marginBottom">0dp</item>
+    </style>
+
+    <style name="AddInjectionCardView.TextView">
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginBottom">8dp</item>
+        <item name="android:background">@drawable/text_view_add_inj_frame</item>
+    </style>
+
+    <style name="AddInjectionCardView.BottomItem">
+        <item name="android:background">@drawable/black_border_frame</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:layout_marginBottom">0dp</item>
+    </style>
+
+    <style name="ButtonDialog" parent="ThemeOverlay.AppCompat">
+        <item name="backgroundTint">@color/colorWhite</item>
+    </style>
+
+    <style name="ButtonDialog.ButtonWithoutBorder" parent="Widget.AppCompat.Button.Borderless">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="InjectionsRecyclerViewItemHeader">
+        <item name="android:textStyle">bold|italic</item>
+        <item name="android:textSize">32sp</item>
+    </style>
+
+    <style name="MenuButtonStyle" parent="Widget.MaterialComponents.Button">
+        <item name="android:background">@drawable/buttons_shape</item>
+        <item name="android:layout_marginTop">16dp</item>
+    </style>
+
+    <style name="SearchViewStyle" parent="Widget.AppCompat.SearchView">
+        <!--search view customization-->
+        <item name="searchHintIcon">@null</item>
+        <item name="closeIcon">@drawable/ic_baseline_close_24</item>
+        <item name="queryHint">@string/searchview_query_text</item>
+        <item name="queryBackground">@drawable/searchview_query_background</item>
+    </style>
 </resources>

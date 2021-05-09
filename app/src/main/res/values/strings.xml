@@ -1,3 +1,47 @@
 <resources>
+    //app
     <string name="app_name">MyInjections</string>
+
+    //menu activity
+    <string name="toolbar_title_menu">MENU "</string>
+    <string name="button_add">Add</string>
+    <string name="button_display">Display</string>
+    <string name="button_display_links">Discover</string>
+    <string name="button_display_inj_amount">Report</string>
+
+    //add injection activity
+    <string name="toolbar_title_add_injection">ADD NEW INJECTION "</string>
+    <string name="header1">#1 Insert name</string>
+    <string name="hint_edittext1">Injection\'s name</string>
+    <string name="header5">#2 Disease that vaccine prevent from</string>
+    <string name="hint_edittext5">Name of illness</string>
+    <string name="header2">#3 Scroll and choose the year</string>
+    <string name="header3">#4 Slide and set the dose</string>
+    <string name="header4">#5 Obligatory injection?</string>
+    <string name="radioButtonPos">Yes</string>
+    <string name="radioButtonNeg">No</string>
+    <string name="insertButton">Insert</string>
+    <string name="snackbarText">New injection has been added.</string>
+
+    //display injections activity
+    <string name="toolbar_title_display_injections">MY INJECTIONS "</string>
+    <string name="menu_sort_by_name">Sort by name</string>
+    <string name="menu_sort_by_year">Sort by year</string>
+    <string name="menu_sort_by_dose">Sort by dose</string>
+    <string name="menu_only_obligatory">Only obligatory</string>
+    <string name="menu_only_optional">Only optional</string>
+    <string name="snackbar_info">injection was successfully deleted.</string>
+    <string name="searchview_query_text">Search…</string>
+
+    //display links activity
+    <string name="toolbar_title_display_links">USEFUL INFORMATION "</string>
+    <string name="progress_bar_info">Loading…</string>
+
+    //display map activity
+    <string name="title_activity_maps">NEARBY MEDICAL SERVICE </string>
+    <string name="button_display_map">Seek</string>
+
+    //report injection activity
+    <string name="toolbar_title_injection_amount">REPORT INJECTION "</string>
+    <string name="last_injection_text">Last injection:</string>
 </resources>

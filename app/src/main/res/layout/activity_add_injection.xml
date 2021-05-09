@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/add_injection_layout">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/add_injection_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        style="@style/Widget.MaterialComponents.Toolbar.Primary"
+        app:navigationIcon="@drawable/sharp_arrow_back_white_24dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/toolbar_title_add_injection"
+            android:textColor="@color/colorWhite"
+            android:textSize="24dp"
+            android:textStyle="italic"
+            android:layout_gravity="center">
+        </TextView>
+    </com.google.android.material.appbar.MaterialToolbar>
+
+    <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/ElementsOnBackgroundPadding"
+            android:orientation="vertical"
+            android:gravity="start">
+
+            <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/AddInjectionCardView">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                style="@style/AddInjectionCardView.LayoutPadding">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/AddInjectionCardView.TextView"
+                    android:text="@string/header1">
+                </TextView>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/colorAccent"
+                    android:layout_gravity="center">
+                </View>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="8dp">
+                </View>
+
+                <EditText
+                    android:id="@+id/name_textView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/AddInjectionCardView.BottomItem"
+                    android:textAlignment="center"
+                    android:gravity="center"
+                    android:hint="@string/hint_edittext1">
+                </EditText>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/AddInjectionCardView">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    style="@style/AddInjectionCardView.LayoutPadding">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/AddInjectionCardView.TextView"
+                        android:text="@string/header5">
+                    </TextView>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:background="@color/colorAccent"
+                        android:layout_gravity="center">
+                    </View>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="8dp">
+                    </View>
+
+                    <EditText
+                        android:id="@+id/illness_textView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/AddInjectionCardView.BottomItem"
+                        android:textAlignment="center"
+                        android:gravity="center"
+                        android:hint="@string/hint_edittext5">
+                    </EditText>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/AddInjectionCardView">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    style="@style/AddInjectionCardView.LayoutPadding">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/AddInjectionCardView.TextView"
+                        android:text="@string/header2">
+                    </TextView>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:background="@color/colorAccent"
+                        android:layout_gravity="center">
+                    </View>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="8dp">
+                    </View>
+
+                    <NumberPicker
+                        android:id="@+id/year_picker"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/AddInjectionCardView.BottomItem"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/AddInjectionCardView">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    style="@style/AddInjectionCardView.LayoutPadding">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/AddInjectionCardView.TextView"
+                        android:text="@string/header3">
+                    </TextView>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:background="@color/colorAccent"
+                        android:layout_gravity="center">
+                    </View>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="8dp">
+                    </View>
+
+                    <com.google.android.material.slider.Slider
+                        android:id="@+id/dose_slider"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/AddInjectionCardView.BottomItem"
+                        android:stepSize="0.01"
+                        android:value="0"
+                        android:valueFrom="0"
+                        android:valueTo="1">
+                    </com.google.android.material.slider.Slider>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/AddInjectionCardView">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    style="@style/AddInjectionCardView.LayoutPadding">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/AddInjectionCardView.TextView"
+                        android:text="@string/header4">
+                    </TextView>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:background="@color/colorAccent"
+                        android:layout_gravity="center">
+                    </View>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="8dp">
+                    </View>
+
+                    <RadioGroup
+                        android:id="@+id/obligatory_radio_group"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        style="@style/AddInjectionCardView.BottomItem">
+
+                        <RadioButton
+                            android:id="@+id/positive_radio_button"
+                            android:layout_width="66dp"
+                            android:layout_height="wrap_content"
+                            android:text="@string/radioButtonPos"
+                            android:layout_marginRight="50dp"/>
+
+                        <RadioButton
+                            android:id="@+id/negative_radio_button"
+                            android:layout_width="60dp"
+                            android:layout_height="wrap_content"
+                            android:text="@string/radioButtonNeg"
+                            android:checked="true"/>
+                    </RadioGroup>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <Button
+                android:id="@+id/insert_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:drawableLeft="@drawable/sharp_add_white_24dp"
+                android:text="@string/insertButton">
+            </Button>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

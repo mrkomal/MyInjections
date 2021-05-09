@@ -9,6 +9,9 @@ buildscript {
         classpath "com.android.tools.build:gradle:4.0.1"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
 
+        // Firebase
+        classpath 'com.google.gms:google-services:4.3.5'
+
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
@@ -19,6 +22,14 @@ allprojects {
         google()
         jcenter()
     }
+}
+
+ext {
+    coreTestingVersion = '2.1.0'
+    junitVersion = '4.13.1'
+    espressoVersion = '3.1.0'
+    androidxJunitVersion = '1.1.2'
+    mockKVersion = '1.10.5'
 }
 
 task clean(type: Delete) {
