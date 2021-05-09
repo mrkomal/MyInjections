@@ -5,11 +5,12 @@ import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.intent.Intents
 import androidx.test.espresso.intent.Intents.intended
 import androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent
+import androidx.test.espresso.intent.rule.IntentsTestRule
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.example.myinjections.R
-import com.example.myinjections.modules.viewModelTestModule
+import com.example.myinjections.modules.*
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
@@ -23,26 +24,13 @@ import org.koin.test.KoinTest
 class MenuActivityTest: KoinTest {
 
     @get:Rule
-    val activityRule: ActivityScenarioRule<MenuActivity>
-            = ActivityScenarioRule(MenuActivity::class.java)
+    val intentsTestRule: IntentsTestRule<MenuActivity> = IntentsTestRule(MenuActivity::class.java)
 
-    @Before
-    fun setUp() {
-        stopKoin()
+//    @Before
+//    fun setUp() { }
 
-        Intents.init()
-        startKoin{
-            modules(
-                viewModelTestModule
-            )
-        }
-    }
-
-    @After
-    fun tearDown() {
-        Intents.release()
-        stopKoin()
-    }
+//    @After
+//    fun tearDown() { }
 
     @Test
     fun clickButton_launchesAddInjectionActivity_returnsTrue() {
@@ -60,5 +48,17 @@ class MenuActivityTest: KoinTest {
     fun clickButton_launchesDisplayLinksActivity_returnsTrue() {
         onView(withId(R.id.display_links_button)).perform(click())
         intended(hasComponent(DisplayLinksActivity::class.java.name))
+    }
+
+    @Test
+    fun clickButton_launchesMapsActivity_returnsTrue() {
+        onView(withId(R.id.display_map_button)).perform(click())
+        intended(hasComponent(MapsActivity::class.java.name))
+    }
+
+    @Test
+    fun clickButton_launchesInjectionAmountActivity_returnsTrue() {
+        onView(withId(R.id.display_injection_amount)).perform(click())
+        intended(hasComponent(InjectionAmountActivity::class.java.name))
     }
 }
