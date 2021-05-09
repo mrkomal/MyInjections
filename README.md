@@ -1,4 +1,4 @@
-# MyInjections
+# MyInjections 💉
 ### Description
 This application is aimed for people that have to take injections or just simply want to keep record of vaccinations that they have already taken. It is written in Kotlin in 
 MVVM architecture. It offers the following functionalities:
