@@ -1,8 +1,7 @@
 # MyInjections
-### Description 
+### Description
 This application is aimed for people that have to take injections or just simply want to keep record of vaccinations that they have already taken. It is written in Kotlin in 
-MVVM architecture.
-It offers the following functionalities:
+MVVM architecture. It offers the following functionalities:
 1) Adding new injection: </br>
 <img src="images/add_video.gif" width="250" height="500"> </br>
 2) Displaying taken injections and filtering them: </br>
@@ -15,7 +14,11 @@ It offers the following functionalities:
 <img src="images/dose_video.gif" width="250" height="500"> </br>
 6) Sending Notifications with urgent information via Firebase: </br>
 <img src="images/notification_video.gif" width="250" height="500"> </br>
+-----
+### Tests
+Additionally some basic units tests are written to test repositories, viewmodels and services. There are also instrumental tests for the most important user interface functionalities that are run with AndroidJUnitRunner. 
 
+-----
 ### Used libraries/frameworks/platforms/API:
 Dev:pencil2::
 - Android Room;
